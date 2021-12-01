@@ -24,6 +24,16 @@ import { HelperComponent } from './components/helper/helper.component';
   ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    BackButtonComponent,
+    CharacterGridComponent,
+    CharacterGridItemComponent,
+    SideDrawerComponent,
+    CharacterDetailsComponent,
+    HelperComponent
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,5 @@
+import { NoAuthGuardService } from './core/services/no-auth-guard.service';
+import { AuthGuardService } from './core/services/auth-guard.service';
 import { ProfileDetailsComponent } from './modules/profile/components/profile-details/profile-details.component';
 import { GraveyardListComponent } from './modules/graveyard/components/graveyard-list/graveyard-list.component';
 import { PartyListComponent } from './modules/party/components/party-list/party-list.component';
@@ -10,15 +12,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'menu', component: MenuComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile', component: ProfileDetailsComponent },
-  // { path: 'battle', component:  },
-  { path: 'party', component: PartyListComponent },
-  { path: 'graveyard', component: GraveyardListComponent },
-  // { path: '**', component: PageNotFoundComponent}
+  { path: '', component: HomeComponent, canActivate: [NoAuthGuardService] },
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuardService] },
+  { path: 'login', component: LoginComponent, canActivate: [NoAuthGuardService] },
+  { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuardService] },
+  { path: 'profile', component: ProfileDetailsComponent, canActivate: [AuthGuardService] },
+  // { path: 'battle', component: , canActivate: [AuthGuardService]},
+  { path: 'party', component: PartyListComponent, canActivate: [AuthGuardService] },
+  { path: 'graveyard', component: GraveyardListComponent, canActivate: [AuthGuardService] },
+  // { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

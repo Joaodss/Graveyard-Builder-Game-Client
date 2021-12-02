@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
@@ -28,7 +29,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule
   ],
   exports: [
     HeaderComponent,
@@ -41,7 +43,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HelperComponent,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule
   ]
 })
 export class SharedModule { }

@@ -1,3 +1,5 @@
+import { AuthInterceptor } from './core/interceptor/auth.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -13,6 +15,7 @@ import { GraveyardModule } from './modules/graveyard/graveyard.module';
 import { BattleModule } from './modules/battle/battle.module';
 import { ProfileModule } from './modules/profile/profile.module';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -20,6 +23,7 @@ import { ProfileModule } from './modules/profile/profile.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
@@ -28,9 +32,11 @@ import { ProfileModule } from './modules/profile/profile.module';
     PartyModule,
     GraveyardModule,
     BattleModule,
-    ProfileModule
+    ProfileModule,
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

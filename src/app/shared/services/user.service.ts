@@ -15,8 +15,6 @@ export class UserService {
   ) { }
 
 
-
-
   public getUserDetails(): Observable<UserDetails> {
     return this.http.get<UserDetails>(this.baseUrl + '/user');
   }
@@ -24,6 +22,11 @@ export class UserService {
   public updateImage(imageUrl: string): Observable<UserDetails> {
     const updateUserBody = { "profilePictureUrl": imageUrl };
     return this.http.post<any>(this.baseUrl + '/update/all', updateUserBody);
+  }
+
+  public updatePassword(currentPassword: string, newPassword: string): Observable<any> {
+    const updateUserBody = { "oldPassword": currentPassword, "newPassword": newPassword };
+    return this.http.post<any>(this.baseUrl + '/update/password', updateUserBody);
   }
 
 }

@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="half-container">
+  <h2>Login:</h2>
+  <form class="form-section" [formGroup]="loginForm"
+    (ngSubmit)="login(formDirective)" #formDirective="ngForm">
+
+    <div class="login_input">
+      <label for="username">Username:</label>
+      <input class="username" type="username" formControlName="username">
+      <label for="password">Password:</label>
+      <input class="password" type="password" formControlName="password">
+    </div>
+
+    <div class="button_container">
+      <button class="login_button" type="submit">Login</button>
+      <button class="register_button" (click)="toRegister()">Register</button>
+    </div>
+  </form>
+
+</div>

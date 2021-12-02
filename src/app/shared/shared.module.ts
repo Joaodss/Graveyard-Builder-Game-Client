@@ -8,6 +8,8 @@ import { CharacterGridItemComponent } from './components/character-grid-item/cha
 import { SideDrawerComponent } from './components/side-drawer/side-drawer.component';
 import { CharacterDetailsComponent } from './components/character-details/character-details.component';
 import { HelperComponent } from './components/helper/helper.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
@@ -23,7 +25,10 @@ import { HelperComponent } from './components/helper/helper.component';
     HelperComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ],
   exports: [
     HeaderComponent,
@@ -33,7 +38,10 @@ import { HelperComponent } from './components/helper/helper.component';
     CharacterGridItemComponent,
     SideDrawerComponent,
     CharacterDetailsComponent,
-    HelperComponent
+    HelperComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
   ]
 })
 export class SharedModule { }

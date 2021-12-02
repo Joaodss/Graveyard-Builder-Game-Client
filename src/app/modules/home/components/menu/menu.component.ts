@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  private routeMapping = new Map<String, String>([
+    ['battle', '/battle'],
+    ['party', '/party'],
+    ['graveyard', '/graveyard']
+  ]);
 
-  ngOnInit(): void {
+  constructor(
+    private route: Router
+  ) { }
+
+  ngOnInit(): void { }
+
+  public navigate(route: string): void {
+    this.route.navigate([this.routeMapping.get(route)]);
   }
 
 }

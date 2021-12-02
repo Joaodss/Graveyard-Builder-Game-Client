@@ -1,6 +1,7 @@
+import { SnackBarLogService } from './snack-bar-log.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ReplaySubject, shareReplay, Subject, tap } from 'rxjs';
+import { from, ReplaySubject, shareReplay, Subject, tap } from 'rxjs';
 import * as moment from 'moment';
 
 @Injectable({
@@ -9,7 +10,10 @@ import * as moment from 'moment';
 export class AuthService {
   private readonly baseUrl = "http://localhost:8000"
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private snackBar: SnackBarLogService
+    ) { }
 
   public login(username: string, password: string) {
     const requestAuthBody = `username=${username}&password=${password}`;
@@ -30,20 +34,18 @@ export class AuthService {
   public isLoggedIn(): boolean {
     if (localStorage.getItem("access_token") == null || localStorage.getItem("expires_at") == null)
       return false;
-    const isLogin = moment().isBefore(this.getExpiration());
-    if (isLogin)
+    if (moment().isBefore(this.getExpiration()))
       return true;
-
     this.logout();
+    this.snackBar.openSnackBar("Session ended. Please login to continue", "Close");
     return false;
   }
 
 
   private setSession(authResult: any) {
-    const expiresAt = moment().add(authResult.expires_at, 'millisecond');
-
+    const expiresAt = moment(0).add(authResult.expires_at);
     localStorage.setItem('access_token', authResult.access_token);
-    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem("expires_at", JSON.stringify(expiresAt));
     this.isLoggedIn();
   }
 

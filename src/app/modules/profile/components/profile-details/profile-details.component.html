@@ -1,1 +1,33 @@
-<p>profile-details works!</p>
+<div class="container user">
+  <div class="profile-img" (click)="openImageForm()">
+    <img src="{{user.profilePictureUrl}}"
+    onError="this.src='./../../../../../assets/images/blank-user.png'"
+    alt="User profile picture">
+    <mat-icon class="hidden profile-img">edit</mat-icon>
+  </div>
+
+  <div class="user-details">
+    <h2>{{user.username}}</h2>
+    <h3>{{user.email}}</h3>
+  </div>
+
+</div>
+<div class="container image-form" *ngIf="isImageEditMode">
+  <input type="text" placeholder="Image URL" name="a"
+    [(ngModel)]="updatedImageUrl">
+  <button class="btn btn-primary" (click)="imageUpdate()"
+    [disabled]="!updatedImageUrl">
+    <mat-icon>check</mat-icon>
+  </button>
+  <button class="btn btn-danger" (click)="closeImageForm()">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+
+<app-password-form></app-password-form>
+
+<div class="container">
+  <button class="logout-button btn btn-danger"
+    (click)="logout()">Logout</button>
+</div>

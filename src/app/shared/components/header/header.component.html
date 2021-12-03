@@ -1,1 +1,29 @@
-Header
+<header class="header-container">
+  <div class="header-title">
+    <img class="logo" src="" alt="Graveyard Builder logo">
+    <h1>Graveyard Builder Game</h1>
+  </div>
+</header>
+
+<nav>
+  <div class="left" *ngIf="isLoggedIn">
+    <div class="nav-item level">
+      <p> LVL: {{level | number: '1.0-0'}} </p>
+    </div>
+    <div class="nav-item gold">
+      <p>Gold: {{user.gold | number: '1.0-0'}}</p>
+      <mat-icon class="gold-coin">monetization_on</mat-icon>
+    </div>
+  </div>
+  <div class="" *ngIf="!isLoggedIn"></div>
+
+  <div class="nav-item profile" (click)="goToProfile()" *ngIf="isLoggedIn">
+    <p> Profile </p>
+    <mat-icon class="profile-circle">account_circle</mat-icon>
+  </div>
+  <div class="nav-item profile" *ngIf="!isLoggedIn" (click)="goToLogin()">
+    <p> Login </p>
+  </div>
+
+
+</nav>

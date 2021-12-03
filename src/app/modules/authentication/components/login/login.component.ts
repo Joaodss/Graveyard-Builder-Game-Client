@@ -1,3 +1,4 @@
+import { UserSharingService } from './../../../../shared/services/user-sharing.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   // -------------------- Constructor --------------------
   constructor(
     private auth: AuthService,
+    private userSharing: UserSharingService,
     private snackBar: SnackBarLogService,
     private router: Router
   ) {
@@ -43,6 +45,7 @@ export class LoginComponent implements OnInit {
         this.loginForm.reset();
         formDirective.resetForm();
         this.snackBar.openSnackBar('Login Successful', 'Close');
+        this.userSharing.getUserDetails();
       },
       error: (error) => {
         this.loginForm.setValue({ username: this.username.value, password: '' });

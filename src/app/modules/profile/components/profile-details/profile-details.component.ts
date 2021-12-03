@@ -1,3 +1,4 @@
+import { UserSharingService } from './../../../../shared/services/user-sharing.service';
 import { Router } from '@angular/router';
 import { AuthService } from './../../../../core/services/auth.service';
 import { UserDetails } from './../../../../shared/models/user.model';
@@ -24,12 +25,12 @@ export class ProfileDetailsComponent implements OnInit {
   constructor(
     private route: Router,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private userSharing: UserSharingService
   ) { }
 
   ngOnInit(): void {
     this.getUserDetails();
-
   }
 
 
@@ -55,19 +56,25 @@ export class ProfileDetailsComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+    this.userSharing.resetUserDetails();
     this.route.navigate(['/login']);
   }
 
 
   private getUserDetails(): void {
-    this.userService.getUserDetails().subscribe({
-      next: (user: UserDetails) => {
-        this.user.username = user.username;
-        this.user.email = user.email;
-        this.user.profilePictureUrl = user.profilePictureUrl;
-      },
-      error: (err: any) => console.log(err),
-    });
+    this.userSharing.getUserDetails();
+    this.userSharing.sharedUser.subscribe((user: UserDetails) => this.user = user);
+
+
+
+    // this.userService.getUserDetails().subscribe({
+    //   next: (user: UserDetails) => {
+    //     this.user.username = user.username;
+    //     this.user.email = user.email;
+    //     this.user.profilePictureUrl = user.profilePictureUrl;
+    //   },
+    //   error: (err: any) => console.log(err),
+    // });
   }
 
 

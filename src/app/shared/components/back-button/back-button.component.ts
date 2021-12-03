@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-back-button',
@@ -6,10 +7,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./back-button.component.sass']
 })
 export class BackButtonComponent implements OnInit {
+  private routeMapping = new Map<String, String>([
+    ['login', '/login'],
+    ['menu', '/menu']
+  ]);
+  @Input() routeName!: string
 
-  constructor() { }
+  constructor(
+    private route: Router
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  public navigateBack(): void {
+    this.route.navigate([this.routeMapping.get(this.routeName)]);
   }
 
 }

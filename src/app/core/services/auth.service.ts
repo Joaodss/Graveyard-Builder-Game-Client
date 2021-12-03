@@ -1,7 +1,7 @@
 import { SnackBarLogService } from './snack-bar-log.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, ReplaySubject, shareReplay, Subject, tap } from 'rxjs';
+import { BehaviorSubject, from, ReplaySubject, shareReplay, Subject, tap } from 'rxjs';
 import * as moment from 'moment';
 
 @Injectable({
@@ -9,11 +9,12 @@ import * as moment from 'moment';
 })
 export class AuthService {
   private readonly baseUrl = "http://localhost:8000"
+  public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isLoggedIn());
 
   constructor(
     private http: HttpClient,
     private snackBar: SnackBarLogService
-    ) { }
+  ) { }
 
   public login(username: string, password: string) {
     const requestAuthBody = `username=${username}&password=${password}`;
@@ -27,6 +28,7 @@ export class AuthService {
   }
 
   public logout() {
+    this.isUserLoggedIn.next(false);
     localStorage.removeItem("access_token");
     localStorage.removeItem("expires_at");
   }
@@ -46,6 +48,7 @@ export class AuthService {
     const expiresAt = moment(0).add(authResult.expires_at);
     localStorage.setItem('access_token', authResult.access_token);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt));
+    this.isUserLoggedIn.next(true);
     this.isLoggedIn();
   }
 

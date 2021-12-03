@@ -1,5 +1,6 @@
 $item-border: 2px solid #333
-$background-color: #aaa
+$background-color: #fff
+$fill-color: #3fff33
 $scale: 1.05
 $transition-time: 0.8s
 
@@ -26,10 +27,10 @@ $transition-time: 0.8s
     margin-left: 20px
     padding: 0
   img
-    width: 40%
-    height: 100%
     object-fit: cover
-    background-color: $background-color
+    width: 160px
+    height: 160px
+    margin: 40px
 
 
 @mixin small-menu-style
@@ -42,10 +43,10 @@ $transition-time: 0.8s
     padding: 0
     margin: 6px 0
   img
-    width: 100%
-    height: 100%
     object-fit: cover
-    background-color: $background-color
+    width: 140px
+    height: 140px
+    margin: 20px
 
 
 
@@ -67,15 +68,10 @@ $transition-time: 0.8s
   @include large-menu-style
   grid-area: battle
 
-
-
 .party-container
   @include menu-item-style
   @include small-menu-style
   grid-area: party
-
-
-
 
 .graveyard-container
   @include menu-item-style
@@ -83,16 +79,8 @@ $transition-time: 0.8s
   grid-area: graveyard
 
 
-img
-  width: 50%
-  height: 50%
-  object-fit: cover
-  background-color: $background-color
-
 h2
-
   font-size: 2em
-  color: #333
 
   margin-top: 1em
   margin-bottom: 1em

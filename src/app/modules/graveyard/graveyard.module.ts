@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GraveyardListComponent } from './components/graveyard-list/graveyard-list.component';
@@ -9,7 +10,8 @@ import { GraveyardListComponent } from './components/graveyard-list/graveyard-li
     GraveyardListComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    SharedModule
   ]
 })
 export class GraveyardModule { }

@@ -1,8 +1,9 @@
+<app-back-button [routeName]="'menu'"></app-back-button>
 <div class="container user">
   <div class="profile-img" (click)="openImageForm()">
     <img src="{{user.profilePictureUrl}}"
-    onError="this.src='./../../../../../assets/images/blank-user.png'"
-    alt="User profile picture">
+      onError="this.src='./../../../../../assets/images/blank-user.png'"
+      alt="User profile picture">
     <mat-icon class="hidden profile-img">edit</mat-icon>
   </div>
 

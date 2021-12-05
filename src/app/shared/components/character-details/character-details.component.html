@@ -1,1 +1,84 @@
-<p>character-details works!</p>
+<div class="container">
+
+  <div class="character-main-details">
+    <div class="profile-img">
+      <img src="{{character.pictureURL}}"
+        onError="this.src='./../../../../../assets/images/white-square.jpg'"
+        alt="character picture">
+    </div>
+
+    <div class="character-details">
+      <h2>{{character.name}}</h2>
+      <h3>{{character.type | titlecase}}</h3>
+    </div>
+  </div>
+
+  <div class="level-details">
+    <p>Level: {{character.level}}</p>
+    <p>Experience: {{character.experience}} / {{experienceToLvlUp}}</p>
+    <div class="button-line" [ngStyle]="{color: (character.currentHealth >= character.maxHealth || user.gold < 5 + character.level) ? '#ccc' : '#000' }">
+      <button class="btn btn-warning" *ngIf="isAlive"
+        [disabled]="character.experience < experienceToLvlUp || user.gold < 5 + character.level">
+        Level Up
+      </button>
+      <p>{{5 + character.level}}</p>
+      <mat-icon>monetization_on</mat-icon>
+    </div>
+  </div>
+
+  <div class="stats-details">
+    <p>Health: {{character.currentHealth}} / {{character.maxHealth}}</p>
+    <p
+      *ngIf="character.type.valueOf() === 'WARRIOR' || character.type.valueOf() === 'ARCHER'">
+      Stamina: {{character.maxStamina}}
+    </p>
+    <p *ngIf="character.type.valueOf() === 'MAGE'">
+      Mana: {{character.maxMana}}
+    </p>
+    <p *ngIf="character.type.valueOf() === 'WARRIOR'">
+      Strength: {{character.strength}}
+    </p>
+    <p *ngIf="character.type.valueOf() === 'ARCHER'">
+      Accuracy: {{character.accuracy}}
+    </p>
+    <p *ngIf="character.type.valueOf() === 'MAGE'">
+      Intelligence: {{character.intelligence}}
+    </p>
+    <div class="button-line" [ngStyle]="{color: (character.currentHealth >= character.maxHealth || user.gold < 5) ? '#ccc' : '#000' }">
+      <button class="btn btn-warning" *ngIf="isAlive"
+        [disabled]="character.currentHealth >= character.maxHealth || user.gold < 5">
+        Heal
+      </button>
+      <p>{{5}}</p>
+      <mat-icon>monetization_on</mat-icon>
+    </div>
+
+
+  </div>
+
+  <div class="button-container">
+    <button *ngIf="character.isAlive" class="btn btn-danger btn-remove"
+      (click)="removeCharacter()">
+      Remove
+    </button>
+    <div *ngIf="!character.isAlive">
+      <button class="btn btn-success btn-remove">
+        Revive
+      </button>
+      <p>{{5}}</p>
+      <mat-icon>monetization_on</mat-icon>
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+</div>

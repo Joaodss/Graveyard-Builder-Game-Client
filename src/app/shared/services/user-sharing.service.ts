@@ -18,14 +18,14 @@ export class UserSharingService {
 
   constructor(private userService: UserService) { }
 
-  getUserDetails() {
+  getUserDetails(): void {
     this.userService.getUserDetails().subscribe({
       next: (user: UserDetails) => this.sharedUser.next(user),
       error: (err) => console.log(err)
     });
   }
 
-  resetUserDetails() {
+  resetUserDetails(): void {
     this.sharedUser.next({
       username: '',
       email: '',
@@ -36,7 +36,7 @@ export class UserSharingService {
     });
   }
 
-  setUser(user: UserDetails) {
+  setUser(user: UserDetails): void {
     this.sharedUser.next(user);
   }
 

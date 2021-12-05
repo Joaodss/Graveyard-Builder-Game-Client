@@ -1,0 +1,90 @@
+$box-width: 180px
+
+.item
+  display: flex
+  flex-direction: column
+  justify-content: center
+  margin: 12px
+
+.box
+  width: $box-width
+  height: 180px
+  margin-bottom: 6px
+  border: 2px solid #ccc
+  border-radius: 4px
+  transition: 0.4s ease-in-out
+  &:hover
+    border: 2px solid #000
+    transform: scale(1.06)
+    cursor: pointer
+
+  img
+    position: absolute
+    background-color: #fff
+    width: 176px
+    height: 176px
+    object-fit: cover
+    transition: 0.4s ease-in-out
+
+
+
+  .hidden
+    display: flex
+    flex-direction: column
+    // align-items: center
+    align-content: space-around
+    margin: 6px 20px
+    height: 164px
+    color: #fff
+    opacity: 0
+    z-index: 1
+
+    .experience-bar-border
+      position: absolute
+      top: 166px
+      left: 15px
+      width: 146px
+      height: 6px
+      border: 1px solid gold
+      border-radius: 1px
+      filter: brightness(0.8)
+
+    .experience-bar-fill
+      width: 0%
+      height: 100%
+      background-color: gold
+      filter: brightness(0.8)
+
+
+  p
+    flex: 1
+    font-size: 1.2em
+    line-height: 40px
+    margin-bottom: 0
+    z-index: 1
+
+.box:hover img
+  filter: brightness(0.3)
+
+.box:hover .hidden
+  opacity: 1
+
+
+
+
+.bottom-name
+  width: $box-width
+  margin: 0 auto
+  padding: 0 6px
+
+  img
+    display: inline
+    height: 18px
+    margin-right: 6px
+
+  p
+    display: inline
+    line-height: 20px
+    height: 20px
+    font-size: 1.2em
+    vertical-align: middle

@@ -28,9 +28,10 @@ export class AuthService {
   }
 
   public logout() {
-    this.isUserLoggedIn.next(false);
     localStorage.removeItem("access_token");
     localStorage.removeItem("expires_at");
+    if(this.isUserLoggedIn === undefined) {return}
+    this.isUserLoggedIn.next(false);
   }
 
   public isLoggedIn(): boolean {

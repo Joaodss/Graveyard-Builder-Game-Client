@@ -1,2 +1,35 @@
 <app-back-button [routeName]="'menu'"></app-back-button>
-<p>graveyard-list works!</p>
+<mat-drawer-container>
+
+
+  <div class="container" autosize>
+
+    <div>
+      <h2>Graveyard</h2>
+      <img src="./../../../../../assets/images/graveyard.png"
+        alt="graveyard logo">
+    </div>
+
+
+    <div class="chracter-list">
+      <app-character-grid-item class="item-detail"
+        *ngFor="let grave of graveyard" [character]="grave" [type]="'grave'"
+        [experienceToLvlUp]="requiredExperienceToLvlUp(grave)"
+        (click)="defineInfoType('grave-details')"
+        (click)="selectCharacter(grave)" (click)="drawer.open()">
+      </app-character-grid-item>
+
+    </div>
+  </div>
+  <mat-drawer #drawer class="sidenav" mode="side" position="end">
+    <app-back-button (click)="drawer.close()" [ngStyle]="{position:'absolute'}">
+    </app-back-button>
+
+    <app-character-details *ngIf="selectedInfoType === 'grave-details'"
+      [character]='selectedCharacter' [isAlive]=false
+      [experienceToLvlUp]="requiredExperienceToLvlUp(selectedCharacter)"
+      (closeSideNav)="drawer.close()">
+    </app-character-details>
+
+  </mat-drawer>
+</mat-drawer-container>

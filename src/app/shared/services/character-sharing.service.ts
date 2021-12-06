@@ -2,6 +2,7 @@ import { CharacterService } from './character.service';
 import { CharacterDetails } from './../models/character.model';
 import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { waitForAsync } from '@angular/core/testing';
 
 @Injectable({
   providedIn: 'root'

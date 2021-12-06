@@ -17,6 +17,8 @@ export class CharacterDetailsComponent implements OnInit {
   @Input() experienceToLvlUp!: number;
   @Input() isAlive!: boolean;
   @Output() setSideNavTypeToAdd = new EventEmitter();
+  @Output() closeSideNav = new EventEmitter();
+
   user!: UserDetails;
 
 
@@ -24,8 +26,8 @@ export class CharacterDetailsComponent implements OnInit {
   healthPoints = 0;
   energyPoints = 0;
   attackPoints = 0;
-
   confirmDelete = false;
+  confirmRevive = false;
 
 
   constructor(
@@ -132,7 +134,7 @@ export class CharacterDetailsComponent implements OnInit {
     });
   }
 
-  confirmation(): void {
+  removeConfirmation(): void {
     this.confirmDelete = true;
   }
 
@@ -145,6 +147,36 @@ export class CharacterDetailsComponent implements OnInit {
       },
       error: (err) => console.log(err)
     });
+  }
+
+  cancelRemove(): void {
+    this.confirmDelete = false;
+  }
+
+
+  reviveConfirmation(): void {
+    this.confirmRevive = true;
+  }
+
+  reviveCharacter(): void {
+    const goldAfterHeal = this.user.gold - 5 - this.character.level;
+    if (goldAfterHeal < 0) return;
+    this.characterService.reviveCharacter(this.character.id).subscribe({
+      next: () => {
+        this.cancelRevive();
+        this.characterSharingService.getCharacters();
+        this.userService.updateGold(goldAfterHeal).subscribe({
+          next: () => this.updateUser(),
+          error: (err) => console.log(err)
+        });
+        this.closeSideNav.emit();
+      },
+      error: (err) => console.log(err)
+    });
+  }
+
+  cancelRevive(): void {
+    this.confirmRevive = false;
   }
 
 }

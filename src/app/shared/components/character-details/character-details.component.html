@@ -16,7 +16,7 @@
   <div class="level-details">
     <p>Level: {{character.level}}</p>
     <p>Experience: {{character.experience}} / {{experienceToLvlUp}}</p>
-    <div class="button-line"
+    <div class="button-line" *ngIf="isAlive"
       [ngStyle]="{color: (character.currentHealth < character.maxHealth || user.gold < 5 + character.level) ? '#ccc' : '#000' }">
       <button class="btn btn-warning" *ngIf="isAlive && !levelingUp"
         (click)="startLevelUp()"
@@ -101,9 +101,9 @@
     </div>
 
 
-    <div class="button-line"
+    <div class="button-line" *ngIf="isAlive"
       [ngStyle]="{color: (character.currentHealth >= character.maxHealth || user.gold < 5) ? '#ccc' : '#000' }">
-      <button class="btn btn-warning" *ngIf="isAlive" (click)="healCharacter()"
+      <button class="btn btn-warning" (click)="healCharacter()"
         [disabled]="character.currentHealth >= character.maxHealth || user.gold < 5">
         Heal
       </button>
@@ -116,18 +116,33 @@
 
   <div class="button-container">
     <button *ngIf="character.isAlive && !confirmDelete"
-      class="btn btn-danger btn-remove" (click)="confirmation()">
+      class="btn btn-danger btn-remove" (click)="removeConfirmation()">
       Remove
     </button>
     <button *ngIf="character.isAlive && confirmDelete"
-      class="btn btn-danger btn-remove" (click)="removeCharacter()">
+      class="btn btn-danger btn-remove" (click)="cancelRemove()">
+      Cancel
+    </button>
+    <button *ngIf="character.isAlive && confirmDelete"
+      class="btn btn-success btn-remove" (click)="removeCharacter()">
       Confirm removal
     </button>
 
 
-    <div *ngIf="!character.isAlive">
-      <button class="btn btn-success btn-remove">
+    <div class="button-line" *ngIf="!character.isAlive"
+      [ngStyle]="{color: (user.gold < 5 + character.level) ? '#ccc' : '#000' }">
+      <button class="btn btn-success btn-revive" *ngIf="!confirmRevive"
+        [disabled]="user.gold < 5 + character.level"
+        (click)="reviveConfirmation()">
         Revive
+      </button>
+      <button *ngIf="confirmRevive" class="btn btn-danger"
+        (click)="cancelRevive()">
+        Cancel
+      </button>
+      <button *ngIf="confirmRevive" class="btn btn-success"
+        (click)="reviveCharacter()">
+        Confirm revival
       </button>
       <p>{{5 + character.level}}</p>
       <mat-icon>monetization_on</mat-icon>

@@ -128,7 +128,6 @@ export class CharacterCreatorComponent implements OnInit {
           this.attackPoints.setValue(Number(this.attackPoints.value) - 1);
         break;
     }
-
   }
 
   generateRandom(): void {

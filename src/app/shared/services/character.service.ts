@@ -48,4 +48,12 @@ export class CharacterService {
     return this.http.delete<any>(this.baseUrl + '/delete/' + id);
   }
 
+  public requiredExperienceToLvlUp(level: number): number {
+    let levelToNextLevel = 0;
+    for (let index = 0; index <= level; index++) {
+      levelToNextLevel = levelToNextLevel + index + 2;
+    }
+    return levelToNextLevel;
+  }
+
 }

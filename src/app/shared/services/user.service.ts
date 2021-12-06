@@ -19,6 +19,11 @@ export class UserService {
     return this.http.get<UserDetails>(this.baseUrl + '/user');
   }
 
+  public updateGold(gold: number): Observable<UserDetails> {
+    const updateUserBody = { "gold": gold };
+    return this.http.post<any>(this.baseUrl + '/update/all', updateUserBody);
+  }
+
   public updateImage(imageUrl: string): Observable<UserDetails> {
     const updateUserBody = { "profilePictureUrl": imageUrl };
     return this.http.post<any>(this.baseUrl + '/update/all', updateUserBody);

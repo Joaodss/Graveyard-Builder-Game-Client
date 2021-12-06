@@ -16,36 +16,94 @@
   <div class="level-details">
     <p>Level: {{character.level}}</p>
     <p>Experience: {{character.experience}} / {{experienceToLvlUp}}</p>
-    <div class="button-line" [ngStyle]="{color: (character.currentHealth >= character.maxHealth || user.gold < 5 + character.level) ? '#ccc' : '#000' }">
-      <button class="btn btn-warning" *ngIf="isAlive"
+    <div class="button-line"
+      [ngStyle]="{color: (character.currentHealth < character.maxHealth || user.gold < 5 + character.level) ? '#ccc' : '#000' }">
+      <button class="btn btn-warning" *ngIf="isAlive && !levelingUp"
+        (click)="startLevelUp()"
         [disabled]="character.experience < experienceToLvlUp || user.gold < 5 + character.level">
         Level Up
       </button>
-      <p>{{5 + character.level}}</p>
-      <mat-icon>monetization_on</mat-icon>
+
+      <button class="btn btn-danger" *ngIf="isAlive && levelingUp"
+        (click)="cancelLevelUp()">
+        Cancel
+      </button>
+      <button class="btn btn-success" *ngIf="isAlive && levelingUp"
+        (click)="LevelUp()"
+        [disabled]="character.experience < experienceToLvlUp || user.gold < 5 + character.level || healthPoints + energyPoints + attackPoints < 3 ">
+        Confirm Level Up
+      </button>
+      <p> {{5 + character.level}}</p>
+      <mat-icon> monetization_on</mat-icon>
     </div>
   </div>
 
   <div class="stats-details">
-    <p>Health: {{character.currentHealth}} / {{character.maxHealth}}</p>
-    <p
-      *ngIf="character.type.valueOf() === 'WARRIOR' || character.type.valueOf() === 'ARCHER'">
-      Stamina: {{character.maxStamina}}
-    </p>
-    <p *ngIf="character.type.valueOf() === 'MAGE'">
-      Mana: {{character.maxMana}}
-    </p>
-    <p *ngIf="character.type.valueOf() === 'WARRIOR'">
-      Strength: {{character.strength}}
-    </p>
-    <p *ngIf="character.type.valueOf() === 'ARCHER'">
-      Accuracy: {{character.accuracy}}
-    </p>
-    <p *ngIf="character.type.valueOf() === 'MAGE'">
-      Intelligence: {{character.intelligence}}
-    </p>
-    <div class="button-line" [ngStyle]="{color: (character.currentHealth >= character.maxHealth || user.gold < 5) ? '#ccc' : '#000' }">
-      <button class="btn btn-warning" *ngIf="isAlive"
+    <div class="stat-row">
+      <p>Health: {{character.currentHealth}} / {{character.maxHealth}}</p>
+      <div class="line-stats" *ngIf="isAlive && levelingUp">
+        <mat-icon class="add-icon" (click)="subtractStat('health')"
+          [ngClass]="healthPoints > 0 ? 'btn-active' : 'btn-inactive'">
+          remove_circle
+        </mat-icon>
+        <p>{{healthPoints}}</p>
+        <mat-icon class="add-icon" (click)="addStat('health')"
+          [ngClass]="healthPoints + energyPoints + attackPoints < 3 ? 'btn-active' : 'btn-inactive'">
+          add_circle
+        </mat-icon>
+      </div>
+    </div>
+
+
+    <div class="stat-row">
+      <p
+        *ngIf="character.type.valueOf() === 'WARRIOR' || character.type.valueOf() === 'ARCHER'">
+        Stamina: {{character.maxStamina}}
+      </p>
+      <p *ngIf="character.type.valueOf() === 'MAGE'">
+        Mana: {{character.maxMana}}
+      </p>
+      <div class="line-stats" *ngIf="isAlive && levelingUp">
+        <mat-icon class="add-icon" (click)="subtractStat('energy')"
+          [ngClass]="energyPoints > 0 ? 'btn-active' : 'btn-inactive'">
+          remove_circle
+        </mat-icon>
+        <p>{{energyPoints}}</p>
+        <mat-icon class="add-icon" (click)="addStat('energy')"
+          [ngClass]="healthPoints + energyPoints + attackPoints < 3 ? 'btn-active' : 'btn-inactive'">
+          add_circle
+        </mat-icon>
+      </div>
+    </div>
+
+
+    <div class="stat-row">
+      <p *ngIf="character.type.valueOf() === 'WARRIOR'">
+        Strength: {{character.strength}}
+      </p>
+      <p *ngIf="character.type.valueOf() === 'ARCHER'">
+        Accuracy: {{character.accuracy}}
+      </p>
+      <p *ngIf="character.type.valueOf() === 'MAGE'">
+        Intelligence: {{character.intelligence}}
+      </p>
+      <div class="line-stats" *ngIf="isAlive && levelingUp">
+        <mat-icon class="add-icon" (click)="subtractStat('attack')"
+          [ngClass]="attackPoints > 0 ? 'btn-active' : 'btn-inactive'">
+          remove_circle
+        </mat-icon>
+        <p>{{attackPoints}}</p>
+        <mat-icon class="add-icon" (click)="addStat('attack')"
+          [ngClass]="healthPoints + energyPoints + attackPoints < 3 ? 'btn-active' : 'btn-inactive'">
+          add_circle
+        </mat-icon>
+      </div>
+    </div>
+
+
+    <div class="button-line"
+      [ngStyle]="{color: (character.currentHealth >= character.maxHealth || user.gold < 5) ? '#ccc' : '#000' }">
+      <button class="btn btn-warning" *ngIf="isAlive" (click)="healCharacter()"
         [disabled]="character.currentHealth >= character.maxHealth || user.gold < 5">
         Heal
       </button>
@@ -57,28 +115,26 @@
   </div>
 
   <div class="button-container">
-    <button *ngIf="character.isAlive" class="btn btn-danger btn-remove"
-      (click)="removeCharacter()">
+    <button *ngIf="character.isAlive && !confirmDelete"
+      class="btn btn-danger btn-remove" (click)="confirmation()">
       Remove
     </button>
+    <button *ngIf="character.isAlive && confirmDelete"
+      class="btn btn-danger btn-remove" (click)="removeCharacter()">
+      Confirm removal
+    </button>
+
+
     <div *ngIf="!character.isAlive">
       <button class="btn btn-success btn-remove">
         Revive
       </button>
-      <p>{{5}}</p>
+      <p>{{5 + character.level}}</p>
       <mat-icon>monetization_on</mat-icon>
     </div>
 
 
-
   </div>
-
-
-
-
-
-
-
 
 
 </div>

@@ -37,11 +37,7 @@ export class PartyListComponent implements OnInit {
   }
 
   requiredExperienceToLvlUp(character: CharacterDetails): number {
-    let levelToNextLevel = 0;
-    for (let index = 0; index <= character.level; index++) {
-      levelToNextLevel = levelToNextLevel + index + 2;
-    }
-    return levelToNextLevel;
+    return this.characterService.requiredExperienceToLvlUp(character.level);
   }
 
 

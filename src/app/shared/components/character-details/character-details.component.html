@@ -17,7 +17,7 @@
     <p>Level: {{character.level}}</p>
     <p>Experience: {{character.experience}} / {{experienceToLvlUp}}</p>
     <div class="button-line" *ngIf="isAlive"
-      [ngStyle]="{color: (character.currentHealth < character.maxHealth || user.gold < 5 + character.level) ? '#ccc' : '#000' }">
+      [ngStyle]="{color: (character.experience < experienceToLvlUp || user.gold < 5 + character.level) ? '#ccc' : '#000' }">
       <button class="btn btn-warning" *ngIf="isAlive && !levelingUp"
         (click)="startLevelUp()"
         [disabled]="character.experience < experienceToLvlUp || user.gold < 5 + character.level">

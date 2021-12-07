@@ -18,7 +18,7 @@
   <div class="" *ngIf="!isLoggedIn"></div>
 
   <div class="nav-item profile" (click)="goToProfile()" *ngIf="isLoggedIn">
-    <p> Profile </p>
+    <p class="profile-title"> Profile </p>
     <mat-icon class="profile-circle">account_circle</mat-icon>
   </div>
   <div class="nav-item profile" *ngIf="!isLoggedIn" (click)="goToLogin()">

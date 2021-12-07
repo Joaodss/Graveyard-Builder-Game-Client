@@ -4,7 +4,7 @@
   align-items: center
   justify-content: space-between
   background-color: #ccc
-  padding: 8px
+  padding: 0.4rem
 
 
 .header-title
@@ -12,7 +12,7 @@
   text-align: center
 
 h1
-  font-size: 1.6rem
+  font-size: 1.4rem
   display: inline
 
 nav
@@ -23,51 +23,50 @@ nav
   justify-content: space-between
 
 
-
-
-
-
 .nav-item
   border-right: 2px solid #555
   border-left: 2px solid #555
-  padding: 6px 20px
-  height: 48px
+  padding: 4px 0.8rem
+  height: 42px
   align-items: center
 
   p
     display: inline
-    font-size: 1.2rem
+    font-size: 0.8rem
     height: 36px
     line-height: 36px
     text-align: center
     vertical-align: middle
 
   .profile-circle
-    height: 34px
-    font-size: 34px
+    height: 1.3rem
+    font-size: 1.3rem
     vertical-align: middle
 
   .gold-coin
     margin-left: 6px
-    height: 24px
-    font-size: 24px
+    height: 1rem
+    font-size: 1rem
     vertical-align: middle
-    color: #ffd700
+    color: gold
 
 .left
   display: flex
   flex-direction: row
   align-items: center
 
+  .gold
+    width: 7.6rem
+
   .level
     border-right: none
-    margin-left: 40px
-    padding-right: 40px
+    margin-left: 10%
+    width: 4.6rem
 
 
 .profile
-  margin-right: 40px
-  width: 130px
+  margin-right: 2%
+  width: 6rem
   text-align: center
   transition: 0.2s ease-in-out
   &:hover
@@ -76,4 +75,7 @@ nav
     color: #fff
 
 
+@media (max-width: 575px)
+  .profile-title
+    display: none
 

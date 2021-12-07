@@ -77,11 +77,11 @@ export class BattleStartComponent implements OnInit {
   }
 
   scrollLeft() {
-    this.widgetsContent.nativeElement.scrollLeft -= 250;
+    this.widgetsContent.nativeElement.scrollLeft -= 190;
   }
 
   scrollRight() {
-    this.widgetsContent.nativeElement.scrollLeft += 250;
+    this.widgetsContent.nativeElement.scrollLeft += 190;
   }
 
   goToBattle(): void {

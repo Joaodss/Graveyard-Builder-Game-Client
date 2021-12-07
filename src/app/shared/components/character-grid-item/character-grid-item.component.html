@@ -8,7 +8,8 @@
   </div>
 
   <div *ngIf="type === 'character'">
-    <div class=box>
+    <div class="box"
+      [ngStyle]="{'border': isSelected ? '2px solid green' : ''}">
       <div>
         <img src="{{character.pictureURL}}" alt="character profile picture"
           onError="this.src='./../../../../../assets/images/white-square.jpg'">

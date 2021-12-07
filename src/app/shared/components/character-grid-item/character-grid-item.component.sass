@@ -19,16 +19,16 @@ $box-width: 180px
     cursor: pointer
 
   img
-    position: absolute
+    position: relative
     background-color: #fff
     width: 176px
     height: 176px
     object-fit: cover
     transition: 0.4s ease-in-out
 
-
-
   .hidden
+    position: relative
+    top: -178px
     display: flex
     flex-direction: column
     // align-items: center
@@ -41,8 +41,8 @@ $box-width: 180px
 
     .experience-bar-border
       position: absolute
-      top: 166px
-      left: 15px
+      top: 160px
+      left: -5px
       width: 146px
       height: 6px
       border: 1px solid gold

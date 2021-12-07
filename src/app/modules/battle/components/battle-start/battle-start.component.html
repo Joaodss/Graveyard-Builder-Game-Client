@@ -1,0 +1,45 @@
+
+<app-battle-header [inBattle]="inBattle" [userName]="currentUserUsername"
+  [opponentName]="opponentUsername" [userProfileImage]="currentUserPicture"
+  [opponentProfileImage]="opponentPicture">
+</app-battle-header>
+
+<div class="container-fluid" *ngIf="!inBattle">
+  <app-back-button [routeName]="'menu'"></app-back-button>
+  <h2 class="selection-title font-weight-light mt-5">Select you fighters
+    {{selectedParty.length}}/5</h2>
+  <div class="row m-auto justify-content-center align-items-center">
+    <div class="col col-sm-auto col-auto align-items-center">
+      <mat-icon class="arrows" (click)="scrollLeft()">arrow_back_ios
+      </mat-icon>
+    </div>
+    <div #widgetsContent
+      class="scrolling-wrapper row flex-row flex-nowrap col col-sm-auto">
+      <div class="item" *ngFor="let partyMember of currentParty">
+        <app-character-grid-item class="item-detail" [type]="'character'"
+          [character]="partyMember"
+          [experienceToLvlUp]="requiredExperienceToLvlUp(partyMember)"
+          [isSelected]="selectedParty.includes(partyMember)"
+          (click)="selectCharacter(partyMember)">
+        </app-character-grid-item>
+      </div>
+    </div>
+
+    <div class="col col-sm-auto col-auto align-items-center">
+      <mat-icon class="arrows" (click)="scrollRight()">
+        arrow_forward_ios</mat-icon>
+    </div>
+  </div>
+
+  <div
+    class="button-container w-100 mt-5 row justify-content-center align-items-center">
+    <button class="btn btn-primary col-auto px-4"
+      [disabled]="selectedParty.length<5" (click)="goToBattle()">
+      Battle!
+    </button>
+  </div>
+</div>
+
+<app-battle-ui *ngIf="inBattle">
+
+</app-battle-ui>

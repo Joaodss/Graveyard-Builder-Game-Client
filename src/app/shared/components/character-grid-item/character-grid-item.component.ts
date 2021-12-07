@@ -11,6 +11,7 @@ export class CharacterGridItemComponent implements OnInit {
   @Input() character!: CharacterDetails;
   @Input() type!: string;
   @Input() experienceToLvlUp!: number;
+  @Input() isSelected: boolean = false;
   experiencePercentage!: any;
 
   iconMap = new Map<CharacterType, string>([

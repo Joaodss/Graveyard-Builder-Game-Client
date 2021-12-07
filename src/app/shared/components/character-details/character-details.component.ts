@@ -20,6 +20,7 @@ export class CharacterDetailsComponent implements OnInit {
   @Output() closeSideNav = new EventEmitter();
 
   user!: UserDetails;
+  currentPartySize!: number;
 
 
   levelingUp = false;
@@ -39,6 +40,7 @@ export class CharacterDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateUser();
+    this.characterSharingService.sharedParty.subscribe(party => this.currentPartySize = party.length);
   }
 
   private updateUser(): void {

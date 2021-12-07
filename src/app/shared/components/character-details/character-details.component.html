@@ -132,7 +132,7 @@
     <div class="button-line" *ngIf="!character.isAlive"
       [ngStyle]="{color: (user.gold < 5 + character.level) ? '#ccc' : '#000' }">
       <button class="btn btn-success btn-revive" *ngIf="!confirmRevive"
-        [disabled]="user.gold < 5 + character.level"
+        [disabled]="user.gold < 5 + character.level || currentPartySize >= 10"
         (click)="reviveConfirmation()">
         Revive
       </button>

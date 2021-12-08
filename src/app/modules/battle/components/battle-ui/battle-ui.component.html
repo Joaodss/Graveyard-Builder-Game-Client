@@ -1,1 +1,25 @@
-<p>battle-ui works!</p>
+<div class="container">
+
+
+</div>
+
+<div class="action-menu row">
+
+
+  <div class="actions col col-6 col-xl-2 d-flex align-items-center justify-content-center">
+    Attack
+  </div>
+  <div class="actions col col-6 col-xl-2 d-flex align-items-center justify-content-center">
+    Special
+  </div>
+  <div
+    class="fighter-selection col col-12 col-xl-8 d-flex flex-row flex-nowrap justify-content-between">
+    <app-character-grid-item *ngFor="let fighter of userTeam"
+      class="item-detail" [type]="'fighter'" [character]="fighter">
+    </app-character-grid-item>
+  </div>
+
+</div>
+<!-- [experienceToLvlUp]="requiredExperienceToLvlUp(fighter)"
+    [isSelected]="fighter === selectedFighter"
+    (click)="selectCharacter(fighter)" -->

@@ -1,5 +1,5 @@
 import { CharacterService } from './../../../../shared/services/character.service';
-import { BattleService } from './../../services/opponent-selector.service';
+import { BattleService } from '../../services/battle.service';
 import { CharacterSharingService } from './../../../../shared/services/character-sharing.service';
 import { UserSharingService } from './../../../../shared/services/user-sharing.service';
 import { CharacterDetails } from './../../../../shared/models/character.model';
@@ -21,7 +21,13 @@ export class BattleStartComponent implements OnInit {
   currentParty!: CharacterDetails[];
   selectedParty: CharacterDetails[] = [];
   selectedOpponents: CharacterDetails[] = [];
+
   inBattle: boolean = false;
+
+  finishedBattle: boolean = false;
+  battleWon: boolean = false;
+  experienceEarned: number = 0;
+  goldEarned: number = 0;
 
 
   constructor(

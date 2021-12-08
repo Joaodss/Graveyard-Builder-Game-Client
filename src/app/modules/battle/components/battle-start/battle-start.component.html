@@ -1,11 +1,12 @@
-
-<app-battle-header [inBattle]="inBattle" [userName]="currentUserUsername"
-  [opponentName]="opponentUsername" [userProfileImage]="currentUserPicture"
+<app-back-button [routeName]="'menu'"></app-back-button>
+<app-battle-header *ngIf="!finishedBattle" [inBattle]="inBattle"
+  [userName]="currentUserUsername" [opponentName]="opponentUsername"
+  [userProfileImage]="currentUserPicture"
   [opponentProfileImage]="opponentPicture">
 </app-battle-header>
 
-<div class="container-fluid" *ngIf="!inBattle">
-  <app-back-button [routeName]="'menu'"></app-back-button>
+<div class="container-fluid" *ngIf="!inBattle && !finishedBattle">
+
   <h2 class="selection-title font-weight-light mt-5">Select you fighters
     {{selectedParty.length}}/5</h2>
   <div class="row m-auto justify-content-center align-items-center">
@@ -40,6 +41,11 @@
   </div>
 </div>
 
-<app-battle-ui *ngIf="inBattle">
+<app-battle-ui *ngIf="inBattle" [userTeam]="selectedParty"
+  [opponentTeam]="selectedOpponents">
 
 </app-battle-ui>
+
+<app-battle-end *ngIf="finishedBattle" [won]="battleWon"
+  [experienceEarned]="experienceEarned" [goldEarned]="goldEarned">
+</app-battle-end>

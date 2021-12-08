@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BattleService } from './opponent-selector.service';
+import { BattleService } from './battle.service';
 
 describe('OpponentSelectorService', () => {
   let service: BattleService;

@@ -1,4 +1,4 @@
-import { CharacterDetails } from './../../../shared/models/character.model';
+import { CharacterDetails } from '../../../shared/models/character.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

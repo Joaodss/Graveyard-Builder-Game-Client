@@ -28,12 +28,10 @@ export class PartyListComponent implements OnInit {
 
   defineInfoType(infoType: string): void {
     this.selectedInfoType = infoType;
-    console.log(this.selectedInfoType);
   }
 
   selectCharacter(partyMember: any): void {
     this.selectedCharacter = partyMember;
-    console.log(this.selectedCharacter);
   }
 
   requiredExperienceToLvlUp(character: CharacterDetails): number {

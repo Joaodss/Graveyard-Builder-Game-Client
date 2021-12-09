@@ -42,8 +42,7 @@
 </div>
 
 <app-battle-ui *ngIf="inBattle" [userTeam]="selectedParty"
-  [opponentTeam]="selectedOpponents">
-
+  [opponentTeam]="selectedOpponents" (finishBattle)="setFinishedBAttle($event)">
 </app-battle-ui>
 
 <app-battle-end *ngIf="finishedBattle" [won]="battleWon"

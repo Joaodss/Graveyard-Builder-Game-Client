@@ -1,10 +1,12 @@
 <div class="container">
   <div class="title-container d-flex justify-content-center align-items-start">
-    <h2 class=result-title *ngIf="won">VICTORY!</h2>
-    <h2 class=result-title *ngIf="!won">DEFEAT!</h2>
+    <h2 class=result-title *ngIf="won ===1">VICTORY!</h2>
+    <h2 class=result-title *ngIf="won === 0">DRAW!</h2>
+    <h2 class=result-title *ngIf="won === -1">DEFEAT!</h2>
   </div>
 
-  <div class="rewards-container row justify-content-center align-content-center">
+  <div
+    class="rewards-container row justify-content-center align-content-center">
     <div class="col col-sm-4  text-center align-content-center">
       <p> + {{experienceEarned}} xp </p>
     </div>

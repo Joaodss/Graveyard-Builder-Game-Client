@@ -58,10 +58,10 @@
     <div class="stat-row">
       <p
         *ngIf="character.type.valueOf() === 'WARRIOR' || character.type.valueOf() === 'ARCHER'">
-        Stamina: {{character.maxStamina}}
+        Stamina: {{character.currentStamina}}
       </p>
       <p *ngIf="character.type.valueOf() === 'MAGE'">
-        Mana: {{character.maxMana}}
+        Mana: {{character.currentMana}}
       </p>
       <div class="line-stats" *ngIf="isAlive && levelingUp">
         <mat-icon class="add-icon" (click)="subtractStat('energy')"
@@ -115,22 +115,7 @@
   </div>
 
   <div class="button-container">
-    <div class="button-line">
-      <button *ngIf="character.isAlive && !confirmDelete"
-        class="btn btn-danger btn-remove" (click)="removeConfirmation()">
-        Remove
-      </button>
-      <button *ngIf="character.isAlive && confirmDelete"
-        class="btn btn-danger btn-remove" (click)="cancelRemove()">
-        Cancel
-      </button>
-      <button *ngIf="character.isAlive && confirmDelete"
-        class="btn btn-success btn-remove" (click)="removeCharacter()">
-        Confirm removal
-      </button>
-    </div>
-
-    <div class="button-line" *ngIf="!character.isAlive"
+    <div class="button-line mb-5" *ngIf="!character.isAlive"
       [ngStyle]="{color: (user.gold < 5 + character.level) ? '#ccc' : '#000' }">
       <button class="btn btn-success btn-revive" *ngIf="!confirmRevive"
         [disabled]="user.gold < 5 + character.level || currentPartySize >= 10"
@@ -149,6 +134,20 @@
       <mat-icon>monetization_on</mat-icon>
     </div>
 
+    <div class="button-line">
+      <button *ngIf="!confirmDelete"
+        class="btn btn-danger btn-remove" (click)="removeConfirmation()">
+        Remove
+      </button>
+      <button *ngIf="confirmDelete"
+        class="btn btn-danger btn-remove" (click)="cancelRemove()">
+        Cancel
+      </button>
+      <button *ngIf="confirmDelete"
+        class="btn btn-success btn-remove" (click)="removeCharacter()">
+        Confirm removal
+      </button>
+    </div>
 
   </div>
 

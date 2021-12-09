@@ -141,11 +141,16 @@ export class CharacterDetailsComponent implements OnInit {
   }
 
   removeCharacter(): void {
+    const characterStatusAlive: boolean = this.character.isAlive;
     this.characterService.deleteCharacter(this.character.id).subscribe({
       next: () => {
         this.confirmDelete = false;
         this.characterSharingService.getCharacters();
-        this.setSideNavTypeToAdd.emit();
+        if (characterStatusAlive) {
+          this.setSideNavTypeToAdd.emit();
+        } else {
+          this.closeSideNav.emit();
+        }
       },
       error: (err) => console.log(err)
     });

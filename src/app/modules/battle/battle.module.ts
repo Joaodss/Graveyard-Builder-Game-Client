@@ -6,6 +6,7 @@ import { BattleUiComponent } from './components/battle-ui/battle-ui.component';
 import { BattleStartComponent } from './components/battle-start/battle-start.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BattleEndComponent } from './components/battle-end/battle-end.component';
+import { CharacterUiComponent } from './components/character-ui/character-ui.component';
 
 
 
@@ -14,7 +15,8 @@ import { BattleEndComponent } from './components/battle-end/battle-end.component
     BattleHeaderComponent,
     BattleUiComponent,
     BattleStartComponent,
-    BattleEndComponent
+    BattleEndComponent,
+    CharacterUiComponent
   ],
   imports: [
     CommonModule,

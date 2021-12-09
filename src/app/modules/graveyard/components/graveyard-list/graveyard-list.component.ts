@@ -30,12 +30,10 @@ export class GraveyardListComponent implements OnInit {
 
   defineInfoType(infoType: string): void {
     this.selectedInfoType = infoType;
-    console.log(this.selectedInfoType);
   }
 
   selectCharacter(grave: any): void {
     this.selectedCharacter = grave;
-    console.log(this.selectedCharacter);
   }
 
   requiredExperienceToLvlUp(character: CharacterDetails): number {

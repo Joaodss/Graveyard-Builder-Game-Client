@@ -7,6 +7,7 @@ $box-width: 180px
   margin: 12px
 
 .box
+  box-sizing: content-box
   width: $box-width
   height: 180px
   margin-bottom: 6px
@@ -21,14 +22,14 @@ $box-width: 180px
   img
     position: relative
     background-color: #fff
-    width: 176px
-    height: 176px
+    width: 100%
+    height: 100%
     object-fit: cover
     transition: 0.4s ease-in-out
 
   .hidden
     position: relative
-    top: -178px
+    top: -180px
     display: flex
     flex-direction: column
     // align-items: center
@@ -90,20 +91,18 @@ $box-width: 180px
 
 
 .small-box
+  box-sizing: content-box
   height: 140px
   width: 140px
   margin: 0 auto
   margin-bottom: 4px
   &:hover
     transform: scale(1.04)
-  img
-    width: 136px
-    height: 136px
   .hidden
-    top: -138px
+    top: -140px
     margin: 4px auto
     margin-left: 16px
-    height: 134px
+    height: 138px
   p
     font-size: 1em
     line-height: 30px

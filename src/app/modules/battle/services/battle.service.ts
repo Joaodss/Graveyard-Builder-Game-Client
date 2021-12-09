@@ -1,6 +1,7 @@
+import { UserDetails } from './../../../shared/models/user.model';
 import { CharacterDetails } from '../../../shared/models/character.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -19,8 +20,16 @@ export class BattleService {
     return this.http.get<CharacterDetails[]>(this.baseUrl + '/opponents');
   }
 
+  updateCharacterHealth(id: number, currentHealth: number): Observable<CharacterDetails> {
+    return this.http.put<CharacterDetails>(this.baseUrl + '/updateHealth/' + id, null, { params: { health: currentHealth } });
+  }
 
+  addCharacterExperience(id: number, experienceGained: number): Observable<CharacterDetails> {
+    return this.http.put<CharacterDetails>(this.baseUrl + '/addExperience/' + id, null, { params: { experience: experienceGained } });
+  }
 
-
+  addUserGoldAndExperience(goldGained: number, experienceGained: number): Observable<UserDetails> {
+    return this.http.put<UserDetails>(this.baseUrl + '/addUserExperienceAndGold', null, { params: { gold: goldGained, experience: experienceGained } });
+  }
 
 }

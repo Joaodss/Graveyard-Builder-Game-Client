@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./battle-end.component.sass']
 })
 export class BattleEndComponent implements OnInit {
-  @Input() won!: boolean;
+  @Input() won!: number;
   @Input() experienceEarned: number = 0;
   @Input() goldEarned: number = 0;
 

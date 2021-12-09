@@ -25,7 +25,7 @@ export class BattleStartComponent implements OnInit {
   inBattle: boolean = false;
 
   finishedBattle: boolean = false;
-  battleWon: boolean = false;
+  battleWon: number = 0;
   experienceEarned: number = 0;
   goldEarned: number = 0;
 
@@ -92,6 +92,14 @@ export class BattleStartComponent implements OnInit {
 
   goToBattle(): void {
     this.inBattle = true;
+  }
+
+  setFinishedBAttle(battleStatus : any): void {
+    this.inBattle = false;
+    this.finishedBattle = true;
+    this.battleWon = battleStatus.isWon;
+    this.goldEarned = battleStatus.goldEarned;
+    this.experienceEarned = battleStatus.experienceEarned;
   }
 
 }

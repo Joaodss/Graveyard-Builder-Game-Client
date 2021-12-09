@@ -1,3 +1,5 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
 import { SharedModule } from './../../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,12 +18,15 @@ import { CharacterUiComponent } from './components/character-ui/character-ui.com
     BattleUiComponent,
     BattleStartComponent,
     BattleEndComponent,
-    CharacterUiComponent
+    CharacterUiComponent,
+
   ],
   imports: [
     CommonModule,
     SharedModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    BrowserModule,
+    BrowserAnimationsModule
   ]
 })
 export class BattleModule { }

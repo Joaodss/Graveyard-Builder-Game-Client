@@ -1,4 +1,25 @@
 <div class="character-container d-flex flex-column">
+
+
+  <div [@displayDamage]="displayDamageState"
+    class="damage-recieved w-100 d-flex flex-row justify-content-center align-items-center"
+    style="height: 20px;" [@displayDamage]="displayDamageState"
+    [ngClass]="{'text-danger': damageReceived > 0, 'text-black-50': damageReceived <= 0}">
+    <div class="damage"
+      [ngStyle]="{'font-size': (damageReceived > character.maxHealth / 3) ? '1.8em':''}">
+      {{displayDamageReceived()}}
+    </div>
+    <div class="passive ms-2">
+      <mat-icon *ngIf="isBlocked">
+        security
+      </mat-icon>
+      <mat-icon
+        *ngIf="receivedCriticalStrike && (damageReceived > 0 || (isBlocked && damageReceived <= 0))">
+        whatshot
+      </mat-icon>
+    </div>
+  </div>
+
   <div class="progress w-100" style="height: 20px;">
     <div class="progress-bar h-100" role="progressbar"
       [ngStyle]="{ 'width': healthPercentage() + '%' }"
@@ -12,8 +33,15 @@
     Health: {{character.currentHealth}} / {{character.maxHealth}}
   </div>
 
-  <div class="energy">
-    {{getEnergy()}}
+  <div class="energy d-flex flex-row justify-content-start">
+    <div>{{getEnergy()}}</div>
+    <div class="energy-changes ms-2 mb-0 text-primary" [@displayEnergy]="displayEnergyState">
+      {{displayEnergyChanges()}}
+      <mat-icon *ngIf="isManaPassive"
+        class="mana-passive passive ms-1 text-primary">
+        arrow_upward
+      </mat-icon>
+    </div>
   </div>
 
   <div class="character-picture w-100">

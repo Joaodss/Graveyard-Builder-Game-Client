@@ -1,6 +1,7 @@
 import { CharacterType } from './../../../shared/models/character-type.enum';
 import { CharacterDetails } from './../../../shared/models/character.model';
 import { Injectable } from '@angular/core';
+import { ThrowStmt } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -38,12 +39,14 @@ export class BattleSimulatorService {
   private playerPassiveActive: boolean = false;
   private playerPassive!: string | undefined;
   private playerDamage: number = 0;
+  private playerEnergyChange: number = 0;
 
   private opponent!: CharacterDetails;
   private opponentAction!: string | undefined;
   private opponentPassiveActive: boolean = false;
   private opponentPassive!: string | undefined;
   private opponentDamage: number = 0;
+  private opponentEnergyChange: number = 0;
 
   constructor() { }
 
@@ -75,6 +78,18 @@ export class BattleSimulatorService {
   getOpponentStats(): CharacterDetails {
     return this.opponent;
   }
+  getPlayerSpecialCost(): number {
+    return this.getSpecialsCost(this.fighter);
+  }
+  getOpponentSpecialCost(): number {
+    return this.getSpecialsCost(this.opponent);
+  }
+  getPlayerEnergyChange(): number {
+    return this.playerEnergyChange;
+  }
+  getOpponentEnergyChange(): number {
+    return this.opponentEnergyChange;
+  }
 
 
   performAttack(fighter: CharacterDetails, opponent: CharacterDetails) {
@@ -101,7 +116,7 @@ export class BattleSimulatorService {
   }
 
 
-  private initializeCombat(fighter: CharacterDetails, opponent: CharacterDetails) {
+  initializeCombat(fighter: CharacterDetails, opponent: CharacterDetails) {
     this.fighter = fighter;
     this.opponent = opponent;
     this.opponentAction = this.makeOpponentAction(this.opponent);
@@ -175,7 +190,7 @@ export class BattleSimulatorService {
     }
     if (target === 'player') {
       this.playerDamage = damage;
-    } else  {
+    } else {
       this.opponentDamage = damage;
     }
   }
@@ -222,6 +237,9 @@ export class BattleSimulatorService {
 
 
   private initializePassives(): void {
+    if (this.opponentAction !== 'Switch'){
+
+    }
     this.playerPassiveActive = this.isPassiveActive(this.fighter);
     this.opponentPassiveActive = this.isPassiveActive(this.opponent);
     this.playerPassive = this.passiveMap.get(this.fighter.type);
@@ -266,6 +284,8 @@ export class BattleSimulatorService {
   }
 
   private calculateDamage() {
+    if (this.playerAction === 'Switch') this.playerDamage = 0;
+    if (this.opponentAction === 'Switch') this.opponentDamage = 0;
     this.opponent.currentHealth -= this.playerDamage;
     this.fighter.currentHealth -= this.opponentDamage;
     // Set dead heath to 0 if health is less than 0.
@@ -275,51 +295,61 @@ export class BattleSimulatorService {
 
 
   private removeEnergy(target: string, byAction: string) {
-
     let character = target === 'player' ? this.fighter : this.opponent;
+    let energyChange = target === 'player' ? this.playerEnergyChange : this.opponentEnergyChange;
+
     const energyCost: number = this.getSpecialsCost(character);
-    console.log('character', character);
-    console.log('energy cost' + target +energyCost);
+    energyChange = -energyCost;
     switch (character.type) {
       case CharacterType.WARRIOR:
-        character.currentStamina -= energyCost;
+        character.currentStamina += energyChange;
         break;
       case CharacterType.ARCHER:
-        character.currentStamina -= energyCost;
+        character.currentStamina += energyChange;
         break;
       case CharacterType.MAGE:
-        character.currentMana -= energyCost;
+        character.currentMana += energyChange;
         break;
     }
 
     if (target === 'player') {
       this.fighter = character;
+      this.playerEnergyChange = energyChange;
     } else {
       this.opponent = character;
+      this.opponentEnergyChange = energyChange;
     }
   }
+
   private restoreEnergy(target: string, byAction: string) {
     let character = target === 'player' ? this.fighter : this.opponent;
+    let energyChange = target === 'player' ? this.playerEnergyChange : this.opponentEnergyChange;
+
     const baseEnergyRestore: number | undefined = this.baseEnergyRestore.get(byAction);
-    console.log('base mana to restore', baseEnergyRestore);
     switch (byAction) {
       case 'Tackle':
-        character.currentStamina += Math.round(baseEnergyRestore! + (character.strength / 2));
+        energyChange = Math.round(baseEnergyRestore! + (character.strength / 2));
+        character.currentStamina += energyChange;
         break;
       case 'Shoot':
-        character.currentStamina += Math.round(baseEnergyRestore! + (character.accuracy / 4));
+        energyChange = Math.round(baseEnergyRestore! + (character.accuracy / 4));
+        character.currentStamina += energyChange;
         break;
       case 'Staff Attack':
-        character.currentMana += Math.round(baseEnergyRestore! + (character.currentMana / 5));
+        energyChange = Math.round(baseEnergyRestore! + (character.currentMana / 5));
+        character.currentMana += energyChange;
         break;
       case 'Mage Passive':
-        character.currentMana += Math.round(baseEnergyRestore! + (character.intelligence / 2));
+        energyChange += Math.round(baseEnergyRestore! + (character.intelligence / 2));
+        character.currentMana += energyChange;
         break;
     }
     if (target === 'player') {
       this.fighter = character;
+      this.playerEnergyChange = energyChange;
     } else {
       this.opponent = character;
+      this.opponentEnergyChange = energyChange;
     }
   }
 

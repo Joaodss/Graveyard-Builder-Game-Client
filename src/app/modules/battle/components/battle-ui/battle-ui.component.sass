@@ -1,5 +1,5 @@
 .container
-  margin: 60px auto
+  margin: 50px auto
 
 .batle-character
   max-width: 210px
@@ -21,11 +21,19 @@
   width: 99%
   margin: 0 0.5%
 
+
+
   .actions
     padding: 0.4rem 0.1rem
     border: 2px solid #333
     font-size: 1.3rem
     color: #333
+    flex-direction: column
+    justify-content: space-evenly
+    .energyCost
+      display: inline-block
+      font-size: 0.7rem
+      margin-top: 0.5em
 
     &:hover
       cursor: pointer
@@ -33,6 +41,11 @@
       color: #fff
     &:first-child
       border-right: none
+
+  .button-disabled
+    background-color: #aaa
+    cursor: default
+    pointer-events: none
 
   .fighter-selection
     overflow-x: auto
@@ -58,7 +71,11 @@
 @media screen and (max-width: 1199.98px)
   .action-menu
     .actions
+      flex-direction: row
       border: 2px solid #333
+      .energyCost
+        margin-top: 0
+        margin-left: 0.5em
       &:first-child
         border-top-left-radius: 4px
       &:nth-child(2)

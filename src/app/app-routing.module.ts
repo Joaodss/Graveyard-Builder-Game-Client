@@ -1,3 +1,4 @@
+import { BattleStartComponent } from './modules/battle/components/battle-start/battle-start.component';
 import { NoAuthGuardService } from './core/services/no-auth-guard.service';
 import { AuthGuardService } from './core/services/auth-guard.service';
 import { ProfileDetailsComponent } from './modules/profile/components/profile-details/profile-details.component';
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoAuthGuardService] },
   { path: 'register', component: RegisterComponent, canActivate: [NoAuthGuardService] },
   { path: 'profile', component: ProfileDetailsComponent, canActivate: [AuthGuardService] },
-  // { path: 'battle', component: , canActivate: [AuthGuardService]},
+  { path: 'battle', component: BattleStartComponent, canActivate: [AuthGuardService] },
   { path: 'party', component: PartyListComponent, canActivate: [AuthGuardService] },
   { path: 'graveyard', component: GraveyardListComponent, canActivate: [AuthGuardService] },
   // { path: '**', component: PageNotFoundComponent }

@@ -7,6 +7,7 @@ $box-width: 180px
   margin: 12px
 
 .box
+  box-sizing: content-box
   width: $box-width
   height: 180px
   margin-bottom: 6px
@@ -19,16 +20,16 @@ $box-width: 180px
     cursor: pointer
 
   img
-    position: absolute
+    position: relative
     background-color: #fff
-    width: 176px
-    height: 176px
+    width: 100%
+    height: 100%
     object-fit: cover
     transition: 0.4s ease-in-out
 
-
-
   .hidden
+    position: relative
+    top: -180px
     display: flex
     flex-direction: column
     // align-items: center
@@ -41,8 +42,8 @@ $box-width: 180px
 
     .experience-bar-border
       position: absolute
-      top: 166px
-      left: 15px
+      top: 160px
+      left: -5px
       width: 146px
       height: 6px
       border: 1px solid gold
@@ -70,8 +71,6 @@ $box-width: 180px
   opacity: 1
 
 
-
-
 .bottom-name
   width: $box-width
   margin: 0 auto
@@ -88,3 +87,25 @@ $box-width: 180px
     height: 20px
     font-size: 1.2em
     vertical-align: middle
+
+
+
+.small-box
+  box-sizing: content-box
+  height: 140px
+  width: 140px
+  margin: 0 auto
+  margin-bottom: 4px
+  &:hover
+    transform: scale(1.04)
+  .hidden
+    top: -140px
+    margin: 4px auto
+    margin-left: 16px
+    height: 138px
+  p
+    font-size: 1em
+    line-height: 30px
+
+.small-bottom-name
+  width: 140px

@@ -61,8 +61,6 @@ export class CharacterCreatorComponent implements OnInit {
 
 
   create(): void {
-    console.log('call');
-
     const newCharacter: NewCharacter = {
       userUsername: this.username,
       type: this.type.value,
@@ -81,7 +79,6 @@ export class CharacterCreatorComponent implements OnInit {
         this.characterService.levelUpCharacter(levelUp).subscribe({
           next: (character: CharacterDetails) => {
             this.characterSharing.getCharacters();
-            console.log('emitting stuff');
             this.setCreatedCharacter.emit(character);
             this.setSideNavTypeToDetails.emit();
             this.name.setValue('');

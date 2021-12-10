@@ -11,6 +11,10 @@ export class CharacterGridItemComponent implements OnInit {
   @Input() character!: CharacterDetails;
   @Input() type!: string;
   @Input() experienceToLvlUp!: number;
+  @Input() isSelected: boolean = false;
+  @Input() isFighting: boolean = false;
+  @Input() isDead: boolean = false;
+
   experiencePercentage!: any;
 
   iconMap = new Map<CharacterType, string>([
@@ -33,7 +37,6 @@ export class CharacterGridItemComponent implements OnInit {
 
   ngOnInit(): void {
     this.calculateExperiencePercentage();
-    console.log('init-' + this.experiencePercentage);
   }
 
   calculateExperiencePercentage(): void {

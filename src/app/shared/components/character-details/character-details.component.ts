@@ -20,6 +20,7 @@ export class CharacterDetailsComponent implements OnInit {
   @Output() closeSideNav = new EventEmitter();
 
   user!: UserDetails;
+  currentPartySize!: number;
 
 
   levelingUp = false;
@@ -39,6 +40,7 @@ export class CharacterDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateUser();
+    this.characterSharingService.sharedParty.subscribe(party => this.currentPartySize = party.length);
   }
 
   private updateUser(): void {
@@ -121,7 +123,7 @@ export class CharacterDetailsComponent implements OnInit {
   healCharacter(): void {
     const goldAfterHeal = this.user.gold - 5;
     if (goldAfterHeal < 0) return;
-    this.characterService.healCharacter(this.character.id, 10).subscribe({
+    this.characterService.healCharacter(this.character.id, 20).subscribe({
       next: (data: CharacterDetails) => {
         this.character = data;
         this.characterSharingService.getCharacters();
@@ -139,11 +141,16 @@ export class CharacterDetailsComponent implements OnInit {
   }
 
   removeCharacter(): void {
+    const characterStatusAlive: boolean = this.character.isAlive;
     this.characterService.deleteCharacter(this.character.id).subscribe({
       next: () => {
         this.confirmDelete = false;
         this.characterSharingService.getCharacters();
-        this.setSideNavTypeToAdd.emit();
+        if (characterStatusAlive) {
+          this.setSideNavTypeToAdd.emit();
+        } else {
+          this.closeSideNav.emit();
+        }
       },
       error: (err) => console.log(err)
     });

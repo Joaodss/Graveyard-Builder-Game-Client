@@ -53,7 +53,8 @@
   </div>
 
   <div class="line-stats">
-    <label *ngIf="type.value === 'WARRIOR' || type.value === 'ARCHER'">Stamina points
+    <label *ngIf="type.value === 'WARRIOR' || type.value === 'ARCHER'">Stamina
+      points
     </label>
     <label *ngIf="type.value === 'MAGE'">Mana points</label>
     <mat-icon class="add-icon" (click)="subtractStat('energy')"
@@ -82,13 +83,19 @@
     </mat-icon>
   </div>
 
-  <button type="button" class="btn-random btn btn-warning" (click)="generateRandom()">
-    Random
-  </button>
+  <div class="button-line">
+    <button type="button" class="btn-random btn btn-warning"
+      (click)="generateRandom()">
+      Random
+    </button>
+  </div>
+  <div class="button-line">
+    <button type="submit" class="btn-submit btn btn-success"
+      [disabled]="!createForm.valid || healthPoints.value + energyPoints.value + attackPoints.value < 3">
+      Create character
+    </button>
+  </div>
 
-  <button type="submit" class="btn-submit btn btn-success"
-    [disabled]="!createForm.valid || healthPoints.value + energyPoints.value + attackPoints.value < 3">
-    Create character
-  </button>
+
 
 </form>

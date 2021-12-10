@@ -1,26 +1,25 @@
 <app-back-button [routeName]="'menu'"></app-back-button>
-<div class="container user">
-  <div class="profile-img" (click)="openImageForm()">
-    <img src="{{user.profilePictureUrl}}"
+<div class="container user row-cols-auto">
+  <div class="profile-img col col-auto" (click)="openImageForm()">
+    <img src="{{user.profilePictureUrl}}" class="img-fluid"
       onError="this.src='./../../../../../assets/images/blank-user.png'"
       alt="User profile picture">
-    <mat-icon class="hidden profile-img">edit</mat-icon>
+    <mat-icon class="hidden profile-img ">edit</mat-icon>
   </div>
 
-  <div class="user-details">
+  <div class="user-details col col-auto ">
     <h2>{{user.username}}</h2>
     <h3>{{user.email}}</h3>
   </div>
-
 </div>
 <div class="container image-form" *ngIf="isImageEditMode">
   <input type="text" placeholder="Image URL" name="a"
     [(ngModel)]="updatedImageUrl">
-  <button class="btn btn-primary" (click)="imageUpdate()"
+  <button class="btn btn-sm btn-primary" (click)="imageUpdate()"
     [disabled]="!updatedImageUrl">
     <mat-icon>check</mat-icon>
   </button>
-  <button class="btn btn-danger" (click)="closeImageForm()">
+  <button class="btn btn-sm btn-danger" (click)="closeImageForm()">
     <mat-icon>close</mat-icon>
   </button>
 </div>
@@ -29,6 +28,6 @@
 <app-password-form></app-password-form>
 
 <div class="container">
-  <button class="logout-button btn btn-danger"
+  <button class="logout-button btn btn-sm btn-danger"
     (click)="logout()">Logout</button>
 </div>

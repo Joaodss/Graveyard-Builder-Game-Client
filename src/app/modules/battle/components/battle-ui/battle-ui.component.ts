@@ -125,64 +125,68 @@ export class BattleUiComponent implements OnInit {
     this.fighter = this.battleSimulator.getPlayerStats();
     this.opponent = this.battleSimulator.getOpponentStats();
 
-    this.battleService.updateCharacterHealth(this.fighter.id, this.fighter.currentHealth).subscribe();
+    this.battleService.updateCharacterHealth(this.fighter.id, this.fighter.currentHealth).subscribe({
+      next: (response) => {
+        if (this.opponent.currentHealth <= 0) {
+          this.giveExperienceToFighter()
+          this.inCharacterSelection = true;
 
-    if (this.opponent.currentHealth <= 0) {
-      console.log('opponent is dead');
-      let maxExperienceToAdd = this.characterService.requiredExperienceToLvlUp(this.fighter.level) - this.fighter.experience;
-      let experienceToAdd = Math.min(this.opponent.level, maxExperienceToAdd);
-      this.battleService.addCharacterExperience(this.fighter.id, experienceToAdd).subscribe();
-      this.inCharacterSelection = true;
-      this.goldGain += this.opponent.level;
-      this.expGain += this.opponent.level;
+          // Give Experience to the user pool
+          this.goldGain += this.opponent.level;
+          this.expGain += this.opponent.level;
 
-      this.opponentTeam = this.opponentTeam.filter(opponent => opponent.id !== this.opponent.id);
-      if (this.opponentTeam.length > 0) {
-        this.opponent = this.opponentTeam[0];
-      } else {
-        this.isBattleWon = true;
-      }
-    }
-    if (this.fighter.currentHealth <= 0) {
-      console.log('fighter is dead');
-      this.fighter.isAlive = false;
-      this.inCharacterSelection = true;
-      if (this.userTeam.filter(char => char.isAlive).length === 0) {
-        this.isBattleLost = true;
-      }
-    }
-    this.checkEndOfBattle()
+          // Switch opponent and check if battle is over
+          this.opponent.isAlive = false;
+          let opponentsAlive = this.opponentTeam.filter(opponent => opponent.isAlive);
+          if (opponentsAlive.length > 0) this.opponent = opponentsAlive[0];
+          this.isBattleWon = opponentsAlive.length === 0;
+        }
+        if (this.fighter.currentHealth <= 0) {
+          this.inCharacterSelection = true;
+          // kill fighter and check if battle is over
+          this.fighter.isAlive = false;
+          this.isBattleLost = (this.userTeam.filter(char => char.isAlive).length === 0);
+        }
+        this.checkEndOfBattle()
+      },
+      error: (err) => console.log(err)
+    });
+  }
+  private giveExperienceToFighter() {
+    let maxExperienceToAdd = this.characterService.requiredExperienceToLvlUp(this.fighter.level) - this.fighter.experience;
+    let experienceToAdd = Math.min(this.opponent.level, maxExperienceToAdd);
+    this.battleService.addCharacterExperience(this.fighter.id, Math.round(experienceToAdd)).subscribe({
+      next: (response) => {
+        this.fighter.experience = response.experience;
+        this.characterSharingService.getCharacters();
+      },
+      error: (error) => console.log(error)
+    });
   }
 
-  checkEndOfBattle(): void {
+  private checkEndOfBattle(): void {
     if (this.isBattleWon && this.isBattleLost) {
       this.goldGain += 10;
       this.goldGain /= 2;
-      this.battleService.addUserGoldAndExperience(this.goldGain, this.expGain).subscribe(
-        () => {
-          this.userSharing.getUserDetails();
-          this.finishBattle.emit({ 'isWon': 0, 'goldEarned': this.goldGain, 'experienceEarned': this.expGain })
-        }
-      );
+      this.updateUserGoldAndExperience(0, this.goldGain, this.expGain);
     } else if (this.isBattleWon && !this.isBattleLost) {
       this.goldGain += 10;
-      this.battleService.addUserGoldAndExperience(this.goldGain, this.expGain).subscribe(
-        () => {
-          this.userSharing.getUserDetails();
-          this.finishBattle.emit({ 'isWon': 1, 'goldEarned': this.goldGain, 'experienceEarned': this.expGain })
-        }
-      );
+      this.updateUserGoldAndExperience(1, this.goldGain, this.expGain);
     } else if (!this.isBattleWon && this.isBattleLost) {
       this.expGain /= 2;
-      this.battleService.addUserGoldAndExperience(0, this.expGain).subscribe(
-        () => {
-          this.userSharing.getUserDetails();
-          this.finishBattle.emit({ 'isWon': -1, 'goldEarned': 0, 'experienceEarned': this.expGain })
-        }
-      );
+      this.updateUserGoldAndExperience(-1, 0, this.expGain);
     }
-    return;
   }
+  private updateUserGoldAndExperience(wonStatus: number, goldGAined: number, experienceGained: number): void {
+    this.battleService.addUserGoldAndExperience(Math.round(goldGAined), Math.round(experienceGained)).subscribe({
+      next: () => {
+        this.userSharing.getUserDetails();
+        this.finishBattle.emit({ 'isWon': wonStatus, 'goldEarned': goldGAined, 'experienceEarned': experienceGained });
+      },
+      error: (error) => console.log(error)
+    });
+  }
+
 
 
   getPlayerSpecialCost(): number {

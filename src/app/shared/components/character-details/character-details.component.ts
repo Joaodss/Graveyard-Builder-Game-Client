@@ -123,7 +123,7 @@ export class CharacterDetailsComponent implements OnInit {
   healCharacter(): void {
     const goldAfterHeal = this.user.gold - 5;
     if (goldAfterHeal < 0) return;
-    this.characterService.healCharacter(this.character.id, 10).subscribe({
+    this.characterService.healCharacter(this.character.id, 20).subscribe({
       next: (data: CharacterDetails) => {
         this.character = data;
         this.characterSharingService.getCharacters();

@@ -1,3 +1,4 @@
+import { OpponentDetails } from './../../../shared/models/opponent.model';
 import { UserDetails } from './../../../shared/models/user.model';
 import { CharacterDetails } from '../../../shared/models/character.model';
 import { Observable } from 'rxjs';
@@ -16,8 +17,8 @@ export class BattleService {
   ) { }
 
 
-  getOpponent(): Observable<CharacterDetails[]> {
-    return this.http.get<CharacterDetails[]>(this.baseUrl + '/opponents');
+  getOpponent(): Observable<OpponentDetails> {
+    return this.http.get<OpponentDetails>(this.baseUrl + '/opponents');
   }
 
   updateCharacterHealth(id: number, currentHealth: number): Observable<CharacterDetails> {

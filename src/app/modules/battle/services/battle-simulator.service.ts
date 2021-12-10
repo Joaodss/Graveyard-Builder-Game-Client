@@ -93,23 +93,17 @@ export class BattleSimulatorService {
 
 
   performAttack(fighter: CharacterDetails, opponent: CharacterDetails) {
-    console.log('perform attack');
-
     this.initializeCombat(fighter, opponent);
     this.playerAction = this.attackMap.get(this.fighter.type);
     this.battle();
   }
   performSpecial(fighter: CharacterDetails, opponent: CharacterDetails) {
-    console.log('perform special');
-
     if (!this.isSufficientEnergy(fighter)) return;
     this.initializeCombat(fighter, opponent);
     this.playerAction = this.specialMap.get(this.fighter.type);
     this.battle();
   }
   performSwitch(fighter: CharacterDetails, opponent: CharacterDetails) {
-    console.log('perform switch');
-
     this.initializeCombat(fighter, opponent);
     this.playerAction = 'Switch';
     this.battle();
@@ -120,7 +114,6 @@ export class BattleSimulatorService {
     this.fighter = fighter;
     this.opponent = opponent;
     this.opponentAction = this.makeOpponentAction(this.opponent);
-    console.log('opponent action: ' + this.opponentAction);
 
   }
   private makeOpponentAction(opponent: CharacterDetails): string | undefined {
@@ -132,29 +125,18 @@ export class BattleSimulatorService {
 
 
   private battle() {
-    console.log('battle');
-    console.log('player action: ' + this.playerAction);
-    console.log('opponent action: ' + this.opponentAction);
-
     if (this.playerAction !== 'Switch')
       this.executeActions('player');
     if (this.opponentAction !== 'Switch')
       this.executeActions('opponent');
-    console.log('player damage before passive: ' + this.playerDamage);
-    console.log('opponent damage before passive: ' + this.opponentDamage);
 
     this.initializePassives();
     if (this.playerPassiveActive && this.playerAction !== 'Switch')
       this.applyPassive('player');
-
     if (this.opponentPassiveActive && this.opponentAction !== 'Switch')
       this.applyPassive('opponent');
 
-    console.log('player damage after passive: ' + this.playerDamage);
-    console.log('opponent damage after passive: ' + this.opponentDamage);
     this.calculateDamage();
-
-
   }
 
   private executeActions(target: string) {
@@ -356,8 +338,6 @@ export class BattleSimulatorService {
   isSufficientEnergy(character: CharacterDetails): boolean {
     const currentEnergy: number = this.getEnergy(character);
     const specialCost: number = this.getSpecialsCost(character);
-    console.log('current energy', currentEnergy);
-    console.log('special cost', specialCost);
     return currentEnergy >= specialCost;
   }
   private getEnergy(character: CharacterDetails): number {

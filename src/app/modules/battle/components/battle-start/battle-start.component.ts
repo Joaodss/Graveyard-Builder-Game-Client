@@ -63,11 +63,17 @@ export class BattleStartComponent implements OnInit {
   getOpponent() {
     this.battleService.getOpponent().subscribe(
       opponent => {
-        this.selectedOpponents = opponent
-        this.opponentUsername = opponent[0].userUsername;
-        this.opponentPicture = '';
+        this.opponentUsername = opponent.username;
+        this.opponentPicture = opponent.profilePictureUrl;
+        this.selectedOpponents = opponent.opponents;
+        this.restoreOpponentsHealth();
       }
     );
+  }
+  restoreOpponentsHealth(): void {
+    this.selectedOpponents.forEach(opponent => {
+      opponent.currentHealth = opponent.maxHealth;
+    });
   }
 
   requiredExperienceToLvlUp(character: CharacterDetails): number {
@@ -94,7 +100,7 @@ export class BattleStartComponent implements OnInit {
     this.inBattle = true;
   }
 
-  setFinishedBAttle(battleStatus : any): void {
+  setFinishedBAttle(battleStatus: any): void {
     this.inBattle = false;
     this.finishedBattle = true;
     this.battleWon = battleStatus.isWon;

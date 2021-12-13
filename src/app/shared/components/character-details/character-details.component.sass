@@ -1,38 +1,40 @@
 .container
-  width: 90%
-  margin: 70px 24px
+  margin: 3rem 0
+  padding-left: 40px
   display: flex
   flex-direction: column
   align-items: flex-start
 
 .character-main-details
-  margin-bottom: 40px
+  margin-bottom: 1.6rem
   display: flex
   flex-direction: row
 
   img
-    width: 120px
-    height: 120px
-    margin-right: 20px
+    width: 5rem
+    width: 5rem
+    margin-right: 1rem
     border: 2px solid #ccc
     border-radius: 4px
 
   h2
-    font-size: 2.4em
+    font-size: 1.6rem
+    margin-top: 0.1rem
+    margin-bottom: 0.8rem
 
   h3
-    font-size: 1.8em
+    font-size: 1.2rem
+    margin: 0
 
 p
-  font-size: 1.4em
+  font-size: 0.9rem
+  margin-bottom: 0.6rem
 
 .button-line
   display: flex
   flex-direction: row
   justify-content: flex-start
   align-items: center
-
-
 
   button
     margin-right: 16px
@@ -41,9 +43,9 @@ p
 
   p, mat-icon
     margin: 0
-    height: 34px
-    line-height: 34px
-    font-size: 1.2em
+    height: 1.2rem
+    line-height: 1.2rem
+    font-size: 0.8rem
     margin-right: 4px
 
 
@@ -53,9 +55,9 @@ p
   justify-content: flex-start
 
   p
-    height: 34px
-    line-height: 34px
-    margin-right: 14px
+    height: 1.2rem
+    line-height: 1.2rem
+    margin-right: 1rem
 
 
 .line-stats
@@ -63,19 +65,17 @@ p
   flex-direction: row
   justify-content: flex-start
   align-items: center
-  margin-bottom: 18px
+  margin-bottom: 1rem
 
   p, mat-icon
     margin: 0
-    height: 34px
-    line-height: 34px
+    height: 1.2rem
+    line-height: 1.2rem
     font-size: 1.2em
     display: inline
 
   p
     margin-right: 6px
-
-.btn-active
 
 .btn-inactive
   color: #ccc
@@ -84,14 +84,17 @@ p
 
 
 .level-details
-  margin-bottom: 34px
+  margin-bottom: 1.6rem
 
 .stats-details
-  margin-bottom: 34px
-
-.button-container
-  margin: 40px 0
+  margin-bottom: 2rem
 
 .btn-remove
-  font-size: 1.2em
+  font-size: 0.9rem
   padding: 10px
+
+
+@media (max-width: 320px)
+  .container
+    min-width: 0
+    width: 100%

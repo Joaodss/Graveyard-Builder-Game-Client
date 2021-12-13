@@ -1,10 +1,11 @@
-<app-back-button [routeName]="'menu'"></app-back-button>
+<app-back-button class="back-button"
+  [ngClass]="{'hide-back-button': drawer.opened}" [routeName]="'menu'">
+</app-back-button>
 <mat-drawer-container>
 
+  <div class="container">
 
-  <div class="container" autosize>
-
-    <div>
+    <div class="title">
       <h2>Graveyard</h2>
       <img src="./../../../../../assets/images/graveyard.png"
         alt="graveyard logo">
@@ -21,8 +22,12 @@
 
     </div>
   </div>
-  <mat-drawer #drawer class="sidenav" mode="side" position="end">
-    <app-back-button (click)="drawer.close()" [ngStyle]="{position:'absolute'}">
+
+  <mat-drawer #drawer class="sidenav" fixedInViewport [mode]="'side'"
+    position="end">
+
+    <app-back-button class="drawer-colse" (click)="drawer.close()"
+      [ngStyle]="{position:'absolute'}">
     </app-back-button>
 
     <app-character-details *ngIf="selectedInfoType === 'grave-details'"

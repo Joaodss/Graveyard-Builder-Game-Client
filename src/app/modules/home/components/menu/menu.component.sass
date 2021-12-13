@@ -23,14 +23,13 @@ $transition-time: 0.4s ease-in-out
   justify-content: flex-start
   align-items: center
   h2
-    font-size: 4em
-    margin-left: 20px
-    padding: 0
+    font-size: 2.4rem
+
   img
     object-fit: cover
-    width: 160px
-    height: 160px
-    margin: 40px
+    width: 7rem
+    height: 7rem
+    margin: 0 1.6rem
 
 
 @mixin small-menu-style
@@ -39,14 +38,26 @@ $transition-time: 0.4s ease-in-out
   justify-content: flex-start
   align-items: center
   h2
-    font-size: 2.4em
+    font-size: 1.4rem
     padding: 0
-    margin: 6px 0
   img
     object-fit: cover
-    width: 140px
-    height: 140px
-    margin: 20px
+    width: 6rem
+    height: 6rem
+    margin: 0.9rem
+
+@mixin large-menu-style-mobile
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  align-items: center
+  h2
+    font-size: 1.8rem
+  img
+    object-fit: cover
+    width: 6rem
+    height: 6rem
+    margin: 1rem
 
 
 
@@ -54,14 +65,15 @@ $transition-time: 0.4s ease-in-out
   display: grid
   grid-template-columns: 1fr 1fr
   grid-template-rows: 1fr 1fr
-  gap: 1em 1em
+  gap: 0.6rem
   grid-auto-flow: row
   grid-template-areas: "battle battle" "party graveyard"
   justify-items: stretch
-  width: 600px
-  height: 500px
-  margin: 0 auto
-  margin-top: 5em
+  margin: 5em auto
+  padding-bottom: 60px
+  width: 25rem
+  height: 25rem
+
 
 .battle-container
   @include menu-item-style
@@ -81,9 +93,57 @@ $transition-time: 0.4s ease-in-out
 
 h2
   font-size: 2em
-
-  margin-top: 1em
-  margin-bottom: 1em
+  padding: 0
+  margin: 0
   font-weight: bold
   text-transform: uppercase
   letter-spacing: 1px
+
+@media (max-width: 400px)
+  .container
+    margin-top: 2em
+    padding-bottom: 480px
+    grid-template-columns: 1fr
+    grid-template-rows: 1fr 1fr 1fr
+    grid-template-areas: "battle" "party" "graveyard"
+    width: 100%
+    .battle-container
+      @include large-menu-style-mobile
+    .party-container
+      @include large-menu-style-mobile
+    .graveyard-container
+      @include large-menu-style-mobile
+
+@media (max-width: 370px)
+  @mixin large-menu-style-mobile
+    h2
+      font-size: 1.4rem
+    img
+      width: 5rem
+      height: 5rem
+      margin: 1rem
+  .container
+    padding-bottom: 440px
+    .battle-container
+      @include large-menu-style-mobile
+    .party-container
+      @include large-menu-style-mobile
+    .graveyard-container
+      @include large-menu-style-mobile
+
+@media (max-width: 320px)
+  @mixin large-menu-style-mobile
+    h2
+      font-size: 1.2rem
+    img
+      width: 4rem
+      height: 4rem
+      margin: 1rem
+  .container
+    padding-bottom: 280px
+    .battle-container
+      @include large-menu-style-mobile
+    .party-container
+      @include large-menu-style-mobile
+    .graveyard-container
+      @include large-menu-style-mobile

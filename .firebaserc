@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "graveyard-builder-game"
+  },
+  "targets": {
+    "graveyard-builder-game": {
+      "hosting": {
+        "graveyard-bulder-client": [
+          "graveyard-builder-game"
+        ]
+      }
+    }
+  }
+}

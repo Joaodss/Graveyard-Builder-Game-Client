@@ -105,6 +105,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "graveyard-bulder-client:build:production",
+            "firebaseProject": "graveyard-builder-game",
+            "firebaseHostingSite": "graveyard-builder-game"
+          }
         }
       }
     }

@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class CharacterService {
-  readonly baseUrl: string = "http://109.237.25.160:8000/api/v1/party-manager";
+  readonly baseUrl: string = "http://localhost:8000/api/v1/party-manager";
 
   constructor(
     private http: HttpClient

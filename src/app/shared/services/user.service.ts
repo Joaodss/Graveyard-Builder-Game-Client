@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class UserService {
-  readonly baseUrl: string = "http://109.237.25.160:8000/api/v1/profiles";
+  readonly baseUrl: string = "http://localhost:8000/api/v1/profiles";
 
 
   constructor(

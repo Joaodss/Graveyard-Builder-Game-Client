@@ -35,6 +35,20 @@ import { animate, sequence, stagger, state, style, transition, trigger, keyframe
           ]))
         ])
       ])
+    ]),
+    trigger('displayDescription', [
+      transition('show <=> again', [
+        style({
+          opacity: 0
+        }),
+        sequence([
+          animate("6s", keyframes([
+            style({ opacity: 1, offset: 0.02 }),
+            style({ opacity: 1, offset: 0.8 }),
+            style({ opacity: 0, offset: 1.0 })
+          ]))
+        ])
+      ])
     ])
   ]
 })
@@ -47,6 +61,10 @@ export class CharacterUiComponent implements OnInit {
 
   @Input() character!: CharacterDetails;
 
+  @Input() action!: string;
+  @Input() damageDone: number = 0;
+  @Input() gaveCriticalStrike: boolean = false;
+
   @Input() damageReceived: number = 0;
   @Input() energyChanges: number = 0;
 
@@ -56,6 +74,7 @@ export class CharacterUiComponent implements OnInit {
 
   displayDamageState: string = 'show';
   displayEnergyState: string = 'show';
+  displayDescription: string = 'show';
 
   constructor() { }
 
@@ -94,6 +113,9 @@ export class CharacterUiComponent implements OnInit {
   }
   showEnergy(): void {
     this.displayEnergyState === 'show' ? this.displayEnergyState = 'again' : this.displayEnergyState = 'show';
+  }
+  showDescription(): void {
+    this.displayDescription === 'show' ? this.displayDescription = 'again' : this.displayDescription = 'show';
   }
 
 

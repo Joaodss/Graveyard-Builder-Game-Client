@@ -1,3 +1,6 @@
+import { map } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable, shareReplay } from 'rxjs';
 import { CharacterSharingService } from './../../../../shared/services/character-sharing.service';
 import { CharacterService } from './../../../../shared/services/character.service';
 import { CharacterDetails } from './../../../../shared/models/character.model';
@@ -14,9 +17,16 @@ export class PartyListComponent implements OnInit {
   selectedCharacter!: CharacterDetails;
   selectedInfoType!: string;
 
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
+
   constructor(
     private characterService: CharacterService,
-    private characterSharing: CharacterSharingService
+    private characterSharing: CharacterSharingService,
+    private breakpointObserver: BreakpointObserver
   ) { }
 
 

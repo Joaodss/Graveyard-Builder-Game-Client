@@ -1,4 +1,4 @@
-<form class="container form-section" [formGroup]="createForm"
+<form class="container form-section row" [formGroup]="createForm"
   (ngSubmit)="create()" #formDirective="ngForm">
 
 
@@ -22,22 +22,30 @@
         <label for="name">Name</label>
         <input class="name" type="text" formControlName="name">
       </div>
-      <div class="radio-type">
-        <label for="type">Type</label>
-        <div><input type="radio" formControlName="type" value="WARRIOR"
-            checked=true>
-          Warrior</div>
-        <div><input type="radio" formControlName="type" value="ARCHER"> Archer
-        </div>
-        <div><input type="radio" formControlName="type" value="MAGE"> Mage</div>
+
+      <div class="image-form">
+        <label for="type">Image url</label>
+        <input class="imageURL" type="text" formControlName="imageURL">
       </div>
+
+    </div>
+
+  </div>
+
+  <div class="radio-type">
+    <label for="type">Type</label>
+    <div class="d-flex flex-row flex-sm-column">
+      <div class="radio-option"><input type="radio" formControlName="type"
+        value="WARRIOR" checked=true>
+      Warrior</div>
+    <div class="radio-option"><input type="radio" formControlName="type"
+        value="ARCHER"> Archer
+    </div>
+    <div class="radio-option"><input type="radio" formControlName="type"
+        value="MAGE"> Mage</div>
     </div>
   </div>
 
-  <div class="image-form">
-    <label for="type">Image url</label>
-    <input class="imageURL" type="text" formControlName="imageURL">
-  </div>
 
   <div class="line-stats">
     <label>Health points</label>

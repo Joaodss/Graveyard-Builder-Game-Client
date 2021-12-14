@@ -1,9 +1,11 @@
+import { HelpPageComponent } from './../help-page/help-page.component';
 import { UserSharingService } from './../../services/user-sharing.service';
 import { UserService } from './../../services/user.service';
 import { AuthService } from './../../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { UserDetails } from './../../models/user.model';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-header',
@@ -26,7 +28,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     private route: Router,
     private authService: AuthService,
-    private userSharing: UserSharingService
+    private userSharing: UserSharingService,
+    private dialog: MatDialog
   ) { }
 
 
@@ -55,6 +58,14 @@ export class HeaderComponent implements OnInit {
         this.level = (this.user.experience / 10) / (Math.log10(this.user.experience + 10)) + 1;
       }
     );
+  }
+
+  openHelpPage(): void {
+    const dialogRef = this.dialog.open(HelpPageComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 
 }

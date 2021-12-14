@@ -10,7 +10,9 @@ import { CharacterDetailsComponent } from './components/character-details/charac
 import { HelperComponent } from './components/helper/helper.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDialogModule } from '@angular/material/dialog';
+import { HelpPageComponent } from './components/help-page/help-page.component';
 
 
 
@@ -22,7 +24,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     CharacterGridItemComponent,
     SideDrawerComponent,
     CharacterDetailsComponent,
-    HelperComponent
+    HelperComponent,
+    HelpPageComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatIconModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatDialogModule
   ],
   exports: [
     HeaderComponent,

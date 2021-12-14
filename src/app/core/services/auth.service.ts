@@ -8,7 +8,7 @@ import * as moment from 'moment';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly baseUrl = "http://1:8000"
+  private readonly baseUrl = "http://109.237.25.160:8000"
   public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.isLoggedIn());
 
   constructor(

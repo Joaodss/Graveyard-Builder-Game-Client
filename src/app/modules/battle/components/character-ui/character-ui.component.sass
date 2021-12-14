@@ -1,41 +1,49 @@
 
 .character-container
-  min-width: 200px
+  width: 8rem
   div
     margin-bottom: 4px
 
-.progress-bar
-  transition: width 1s ease-out
+  .damage-recieved
+    opacity: 0
+    height: 1rem
 
+    .damage
+      font-size: 1rem
+      height: 1rem
 
-.character-name
-  img
-    display: inline
-    height: 18px
-    margin-right: 6px
+  .progress-bar
+    transition: width 1s ease-out
 
-  p
-    display: inline
-    line-height: 20px
-    height: 20px
-    font-size: 1.2em
-    vertical-align: middle
+  .health, .energy
+    font-size: 0.7rem
 
-.energy-changes
-  font-size: 0.9em
+  .energy-changes
+    opacity: 0
+    font-size: 0.6rem
+    .mana-passive
+      font-size: 0.8rem
+      height: 0.8rem
+      width: 0.8rem
+      vertical-align: middle
 
-.mana-passive
-  font-size: 1.4em
-  height: 20px
-  width: auto
-  vertical-align: middle
+  .character-name
+    img
+      display: inline
+      height: 1rem
+      margin-right: 0.2rem
 
-.damage
-  font-size: 1.4em
-  height: 20px
+    p
+      display: inline
+      line-height: 1rem
+      height: 1.2rem
+      font-size: 0.9rem
+      vertical-align: middle
 
-.damage-recieved
-  opacity: 0
+  .action-description
+    opacity: 0
+    font-size: 0.6rem
 
-.energy-changes
-  opacity: 0
+@media screen and (max-width: 420px)
+  .character-container
+    width: 7rem

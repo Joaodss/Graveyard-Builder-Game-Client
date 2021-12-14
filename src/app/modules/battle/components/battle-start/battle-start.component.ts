@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CharacterService } from './../../../../shared/services/character.service';
 import { BattleService } from '../../services/battle.service';
 import { CharacterSharingService } from './../../../../shared/services/character-sharing.service';
@@ -34,8 +35,8 @@ export class BattleStartComponent implements OnInit {
     private userSharing: UserSharingService,
     private characterSharing: CharacterSharingService,
     private characterService: CharacterService,
-    private battleService: BattleService
-
+    private battleService: BattleService,
+    private route: Router
   ) { }
 
 
@@ -106,6 +107,12 @@ export class BattleStartComponent implements OnInit {
     this.battleWon = battleStatus.isWon;
     this.goldEarned = battleStatus.goldEarned;
     this.experienceEarned = battleStatus.experienceEarned;
+  }
+
+  goToParty(): void {
+    this.inBattle = false;
+    this.finishedBattle = false;
+    this.route.navigate(['/party']);
   }
 
 }

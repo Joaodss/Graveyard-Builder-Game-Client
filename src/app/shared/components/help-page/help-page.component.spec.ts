@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SideDrawerComponent } from './side-drawer.component';
+import { HelpPageComponent } from './help-page.component';
 
-describe('SideDrawerComponent', () => {
-  let component: SideDrawerComponent;
-  let fixture: ComponentFixture<SideDrawerComponent>;
+describe('HelpPageComponent', () => {
+  let component: HelpPageComponent;
+  let fixture: ComponentFixture<HelpPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SideDrawerComponent ]
+      declarations: [ HelpPageComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SideDrawerComponent);
+    fixture = TestBed.createComponent(HelpPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

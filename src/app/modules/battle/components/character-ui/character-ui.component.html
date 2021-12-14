@@ -3,10 +3,9 @@
 
   <div [@displayDamage]="displayDamageState"
     class="damage-recieved w-100 d-flex flex-row justify-content-center align-items-center"
-    style="height: 20px;" [@displayDamage]="displayDamageState"
     [ngClass]="{'text-danger': damageReceived > 0, 'text-black-50': damageReceived <= 0}">
     <div class="damage"
-      [ngStyle]="{'font-size': (damageReceived > character.maxHealth / 3) ? '1.8em':''}">
+      [ngStyle]="{'font-size': (damageReceived > character.maxHealth / 3) ? '1.3rem':''}">
       {{displayDamageReceived()}}
     </div>
     <div class="passive ms-2">
@@ -35,7 +34,8 @@
 
   <div class="energy d-flex flex-row justify-content-start">
     <div>{{getEnergy()}}</div>
-    <div class="energy-changes ms-2 mb-0 text-primary" [@displayEnergy]="displayEnergyState">
+    <div class="energy-changes ms-2 mb-0 text-primary"
+      [@displayEnergy]="displayEnergyState">
       {{displayEnergyChanges()}}
       <mat-icon *ngIf="isManaPassive"
         class="mana-passive passive ms-1 text-primary">
@@ -63,4 +63,20 @@
     <img src="{{iconMap.get(character.type)}}" alt="character type icon">
     <p>{{character.name}}</p>
   </div>
+  <div class="action-description w-100" [@displayDescription]="displayDescription">
+    <span *ngIf="isBlocked">Incoming damage blocked! </span>
+    <span *ngIf="action==='Tackle'">{{character.name}} used tackle for {{damageDone}} damage. </span>
+    <span *ngIf="action==='Sword Attack'">{{character.name}} used a sword attack for {{damageDone}} damage. </span>
+
+    <span *ngIf="action==='Shoot'">{{character.name}} shot an arrow for {{damageDone}} damage. </span>
+    <span *ngIf="action==='Aim'">{{character.name}} aimed. 25% crit chance added! </span>
+    <span *ngIf="gaveCriticalStrike">Critical strike! </span>
+
+    <span *ngIf="isManaPassive">Extra mana restored! </span>
+    <span *ngIf="action==='Staff Attack'">{{character.name}} attacked with staff for {{damageDone}} damage. </span>
+    <span *ngIf="action==='Fireball'">{{character.name}} used fireball for {{damageDone}} damage. </span>
+
+    <span *ngIf="character.currentHealth === 0">{{character.name}} died! </span>
+  </div>
+
 </div>

@@ -1,3 +1,4 @@
+import { SnackBarLogService } from './../../../../core/services/snack-bar-log.service';
 import { RandomGenerationService, UserNameData } from './../../services/random-generation-service.service';
 import { LevelUp } from './../../../../shared/models/level-up.model';
 import { UserSharingService } from './../../../../shared/services/user-sharing.service';
@@ -37,7 +38,8 @@ export class CharacterCreatorComponent implements OnInit {
     private userSharing: UserSharingService,
     private characterService: CharacterService,
     private characterSharing: CharacterSharingService,
-    private randomGeneration: RandomGenerationService
+    private randomGeneration: RandomGenerationService,
+    private snackBar: SnackBarLogService
   ) {
     this.name = new FormControl('', [Validators.required]);
     this.type = new FormControl('WARRIOR', [Validators.required]);
@@ -86,6 +88,7 @@ export class CharacterCreatorComponent implements OnInit {
             this.energyPoints.setValue(0);
             this.attackPoints.setValue(0);
             this.imageURL.setValue('');
+            this.snackBar.openSnackBar(character.name + ' was created successfully!', 'Close');
           },
           error: err => console.log(err)
         });

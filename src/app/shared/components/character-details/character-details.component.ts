@@ -1,3 +1,4 @@
+import { SnackBarLogService } from './../../../core/services/snack-bar-log.service';
 import { UserService } from './../../services/user.service';
 import { LevelUp } from './../../models/level-up.model';
 import { UserSharingService } from './../../services/user-sharing.service';
@@ -35,7 +36,8 @@ export class CharacterDetailsComponent implements OnInit {
     private characterService: CharacterService,
     private characterSharingService: CharacterSharingService,
     private userSharing: UserSharingService,
-    private userService: UserService
+    private userService: UserService,
+    private snackBar: SnackBarLogService
   ) { }
 
   ngOnInit(): void {
@@ -72,12 +74,12 @@ export class CharacterDetailsComponent implements OnInit {
       attackPoints: this.attackPoints
     }
     this.characterService.levelUpCharacter(levelUp).subscribe({
-
       next: (data: CharacterDetails) => {
         this.cancelLevelUp();
         this.characterSharingService.getCharacters();
         this.character = data
         this.experienceToLvlUp = this.characterService.requiredExperienceToLvlUp(this.character.level);
+        this.snackBar.openSnackBar(data.name + ' leveled up!', 'Close');
         this.userService.updateGold(goldAfterLvlUp).subscribe({
           next: () => this.updateUser(),
           error: (err) => console.log(err)
@@ -127,6 +129,7 @@ export class CharacterDetailsComponent implements OnInit {
       next: (data: CharacterDetails) => {
         this.character = data;
         this.characterSharingService.getCharacters();
+        this.snackBar.openSnackBar(data.name + ' was healed 20hp!', 'Close');
         this.userService.updateGold(goldAfterHeal).subscribe({
           next: () => this.updateUser(),
           error: (err) => console.log(err)
@@ -145,6 +148,7 @@ export class CharacterDetailsComponent implements OnInit {
     this.characterService.deleteCharacter(this.character.id).subscribe({
       next: () => {
         this.confirmDelete = false;
+        this.snackBar.openSnackBar(this.character.name + ' was permanently removed!', 'Close');
         this.characterSharingService.getCharacters();
         if (characterStatusAlive) {
           this.setSideNavTypeToAdd.emit();
@@ -172,6 +176,7 @@ export class CharacterDetailsComponent implements OnInit {
       next: () => {
         this.cancelRevive();
         this.characterSharingService.getCharacters();
+        this.snackBar.openSnackBar(this.character.name + ' was revived!', 'Close');
         this.userService.updateGold(goldAfterHeal).subscribe({
           next: () => this.updateUser(),
           error: (err) => console.log(err)

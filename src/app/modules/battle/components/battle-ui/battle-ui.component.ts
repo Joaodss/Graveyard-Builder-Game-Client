@@ -97,6 +97,7 @@ export class BattleUiComponent implements OnInit {
       this.battleSimulator.performSwitch(this.fighter, this.opponent);
       this.opponentComponent.showEnergy();
       this.fighterComponent.showDamage();
+      this.opponentComponent.showDescription();
       this.updateBattleStats();
 
     }
@@ -108,6 +109,8 @@ export class BattleUiComponent implements OnInit {
     this.opponentComponent.showEnergy();
     this.fighterComponent.showDamage();
     this.opponentComponent.showDamage();
+    this.fighterComponent.showDescription();
+    this.opponentComponent.showDescription();
     this.updateBattleStats();
   }
 
@@ -117,6 +120,8 @@ export class BattleUiComponent implements OnInit {
     this.opponentComponent.showEnergy();
     this.fighterComponent.showDamage();
     this.opponentComponent.showDamage();
+    this.fighterComponent.showDescription();
+    this.opponentComponent.showDescription();
     this.updateBattleStats();
   }
 
@@ -207,11 +212,11 @@ export class BattleUiComponent implements OnInit {
   getOpponentDamageReceived(): number {
     return this.battleSimulator.getPlayerDamage();
   }
-  getPlayerAction(): string | undefined {
-    return this.battleSimulator.getPlayerAction();
+  getPlayerAction(): string {
+    return this.battleSimulator.getPlayerAction()!;
   }
-  getOpponentAction(): string | undefined {
-    return this.battleSimulator.getOpponentAction();
+  getOpponentAction(): string {
+    return this.battleSimulator.getOpponentAction()!;
   }
   getPlayerPassive(): string | undefined {
     return this.battleSimulator.getPlayerPassive();

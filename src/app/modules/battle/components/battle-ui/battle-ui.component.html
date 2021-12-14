@@ -1,28 +1,31 @@
 <div class="container">
 
-  <div class="battle-area row justify-content-center" *ngIf="!firstRound">
-    <div class="col col-sm-4 col-md-3 d-flex flex-row justify-content-center">
+  <div
+    class="battle-area d-flex flex-row justify-content-between justify-content-sm-evenly align-content-center"
+    *ngIf="!firstRound">
+
+    <div class="d-flex flex-row justify-content-center">
       <app-character-ui #fighterComponent class="batle-character"
         [character]="fighter" [damageReceived]="getPlayerDamageReceived()"
         [energyChanges]="getPlayerEnergyChanges()"
         [isBlocked]="getPlayerPassive() !== undefined && getPlayerPassive() === 'Block'"
         [isManaPassive]="getPlayerPassive() !== undefined &&
-      getPlayerPassive() === 'Restore Mana'" [receivedCriticalStrike]="getOpponentPassive() !== undefined &&
+      getPlayerPassive() === 'Restore Mana'" [action]="getPlayerAction()"
+        [damageDone]="getOpponentDamageReceived()" [gaveCriticalStrike]="getPlayerPassive() !== undefined &&
+        getPlayerPassive() === 'Critical Hit'" [receivedCriticalStrike]="getOpponentPassive() !== undefined &&
       getOpponentPassive() === 'Critical Hit'">
       </app-character-ui>
     </div>
 
-    <div class="col-12 col-sm-4">
-
-    </div>
-
-    <div class="col col-sm-4 col-md-3 d-flex flex-row justify-content-center">
+    <div class="d-flex flex-row justify-content-center">
       <app-character-ui #opponentComponent class="batle-character"
         [character]="opponent" [damageReceived]="getOpponentDamageReceived()"
         [energyChanges]="getOpponentEnergyChanges()"
         [isBlocked]="getOpponentPassive() !== undefined && getOpponentPassive() === 'Block'"
         [isManaPassive]="getOpponentPassive() !== undefined &&
-        getOpponentPassive() === 'Restore Mana'" [receivedCriticalStrike]="getPlayerPassive() !== undefined &&
+        getOpponentPassive() === 'Restore Mana'" [action]="getOpponentAction()"
+        [damageDone]="getPlayerDamageReceived()" [gaveCriticalStrike]="getOpponentPassive() !== undefined &&
+        getOpponentPassive() === 'Critical Hit'" [receivedCriticalStrike]="getPlayerPassive() !== undefined &&
         getPlayerPassive() === 'Critical Hit'">
       </app-character-ui>
     </div>
@@ -62,7 +65,8 @@
     *ngIf="!inCharacterSelection" (click)="performAttack()">
     {{attackMap.get(fighter.type)}}
   </div>
-  <div [ngClass]="{'button-disabled': getPlayerSpecialCost() > (energyMap.get(fighter.type) === 'stamina' ? fighter.currentStamina : fighter.currentMana)}"
+  <div
+    [ngClass]="{'button-disabled': getPlayerSpecialCost() > (energyMap.get(fighter.type) === 'stamina' ? fighter.currentStamina : fighter.currentMana)}"
     class="actions col col-6 col-xl-2 d-flex align-items-center justify-content-center"
     *ngIf="!inCharacterSelection" (click)="performSpecial()">
     {{specialMap.get(fighter.type)}}
@@ -84,6 +88,3 @@
   </div>
 
 </div>
-<!-- [experienceToLvlUp]="requiredExperienceToLvlUp(fighter)"
-    [isSelected]="fighter === selectedFighter"
-    (click)="selectCharacter(fighter)" -->

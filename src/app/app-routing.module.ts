@@ -9,6 +9,7 @@ import { MenuComponent } from './modules/home/components/menu/menu.component';
 import { RegisterComponent } from './modules/authentication/components/register/register.component';
 import { LoginComponent } from './modules/authentication/components/login/login.component';
 import { HomeModule } from './modules/home/home.module';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: 'battle', component: BattleStartComponent, canActivate: [AuthGuardService] },
   { path: 'party', component: PartyListComponent, canActivate: [AuthGuardService] },
   { path: 'graveyard', component: GraveyardListComponent, canActivate: [AuthGuardService] },
-  // { path: '**', component: PageNotFoundComponent }
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HelpPageComponent } from './components/help-page/help-page.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 
@@ -21,7 +22,8 @@ import { HelpPageComponent } from './components/help-page/help-page.component';
     BackButtonComponent,
     CharacterGridItemComponent,
     CharacterDetailsComponent,
-    HelpPageComponent
+    HelpPageComponent,
+    NotFoundComponent
   ],
   imports: [
     CommonModule,
